@@ -37,7 +37,7 @@ $$P_X(k) = P(X=k) =\binom{n}{k}p^k(1-p)^{n-k}.$$
 
 Here is a useful way of thinking about a binomial random variable. It can be obtained by $n$ independent coin tosses. If we think of each coin toss as a Bernoulli random variable, the $Binomial(n,p)$ random variable is a sum of $n$ independent $Bernoulli(p)$ random variables. This is stated more precisely in the following lemma.
 
-If $X_1,X_2,\dots,X_n$ are independent $Bernoulli(p)$ random variables, then the random variable $X$ defined by $X=X_1+X_2+\dots+X_n$ has a$Binomial(n,p)$ distribution. 
+If $X_1,X_2,\dots,X_n$ are independent $Bernoulli(p)$ random variables, then the random variable $X$ defined by $X=X_1+X_2+\dots+X_n$ has a $Binomial(n,p)$ distribution. 
 
 
 Example: 
@@ -137,7 +137,7 @@ P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}
 
 \subsection{Poisson as an Approximation for Binomial}
  
-The Poisson distribution can be viewed as the limit of binomial distribution. Suppose $X\sim Binomial(n,p)$ where $n$ is very large and $p$ is very small. In particular, assume that $\lambda=np$ is a positive constant. We show that the PMF of $X$ can be approximated by the PMF of a $Poisson(\lambda)$ random variable. The importance of this is that Poisson PMF is much easier to compute than the binomial. Let us state this as a theorem.
+The Poisson distribution can be viewed as the limit of binomial distribution. Suppose $X\sim Binomial(n,p)$ where the number of trials $n$ is very large and the probability of success $p$ is very small. In particular, assume that $\lambda=np$ is a positive constant. We show that the PMF of $X$ can be approximated by the PMF of a $Poisson(\lambda)$ random variable. The importance of this is that Poisson PMF is much easier to compute than the binomial. Let us state this as a theorem.
 
 Let $X\sim Binomial(n,p=\frac{\lambda}{n})$, where $\lambda>0$ is fixed. Then for any $k\in\{0,1,2,\dots\}$ we have 
 $$\lim_{n\to \infty}P_X(k) = \frac{e^{-\lambda} \lambda^k}{k!}.$$

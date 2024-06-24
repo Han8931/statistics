@@ -107,79 +107,274 @@ Now, let $X$ be a continuous random variable and $Y=g(X)$. We will show that you
 	0 & \quad \textrm{if }g(x)=y \textrm{ does not have a solution}
 	\end{cases} 
 \end{equation*}
-Note that since $g$ is strictly increasing, its inverse function $g^{-1}$ is well defined. That is, for each $y\in R_Y$, there exists a \textbf{unique} $x_1$ such that $g(x_1)=y$. We can write $x_1=g^{-1}(y)$.
+
+Note that the derivative $\frac{dx}{dy}$ or $\frac{d}{dy}(g^{-1}(y))$ \textbf{measures how $X$ changes with respect to $Y$}.
+% Note that start with the function $y=f^{-1}(x)$. Write this as $x=f(y)$ and differentiate both sides implicitly with respect to$x$ using the Chain Rule:
+% \begin{align*}
+% 	1 &= f'(y)\frac{dy}{dx}\\
+% 	\frac{dy}{dx} &= \frac{1}{f'(y)}\\
+% 	y &= f^{-1}(x)\\
+% 	[f^{-1}]'(x) &= \frac{1}{f'(f^{-1}(x))}
+% \end{align*}
+Since $g$ is strictly increasing, its inverse function $g^{-1}$ is well defined. That is, for each $y\in R_Y$, there exists a \textbf{unique} $x_1$ such that $g(x_1)=y$. We can write $x_1=g^{-1}(y)$.
 \begin{align*}
 	F_Y(y) &= P(Y\leq y)\\
 		   &= P(g(X)\leq y)\\
 		   &= P(X< g^{-1}(y))\quad \text{since }g \text{ is strictly increasing.}\\
 		   &= F_X(g^{-1}(y)).
 \end{align*}
-To find the PDF of $Y$, we differente,
+To find the PDF of $Y$, we differentiate $F_Y(y)$ as follows:
 \begin{align*}
 	f_Y(y) &= \frac{d}{dy}F_X(x_1)\quad \text{by } g(x_1)=y\\
 		   &=\frac{dx_1}{dy}\cdot \underbrace{\frac{d}{dx_1}F_X(x_1)}_{=F'_X(x_1)}\\
 		   &=\frac{dx_1}{dy}f_X(x_1)\\
-		   &= \frac{f_X(x_1)}{g'(x_1)} \quad \text{,since } \frac{dx}{dy}=\frac{1}{\frac{dy}{dx}}.
+		   &=f_X(g^{-1}(y))\left|\frac{d}{dy}(g^{-1}(y))\right|
+		   % &= \frac{f_X(x_1)}{g'(x_1)} \quad \text{, since } \frac{dx}{dy}=\frac{1}{\frac{dy}{dx}}.
 \end{align*}
 We can repeat the same argument for the case where $g$ is \textbf{strictly decreasing}. In that case, $g'(x_1)$ will be \textbf{negative}, so we need to use $|g′(x_1)|$ . Thus, we can state the following theorem for a \textit{strictly monotonic function}. (A function $g:R\to R$ is called strictly monotonic if it is strictly increasing or strictly decreasing.)
 
+Actually, we assumed that $g$ was one-to-one out of convenience: the condition that $g$ is one-to-one is not necessary for change of variables to work: Consider a continuous random variable $X$ with domain $R_X$, and let $Y=g(X)$. Suppose that we can partition $R_X$ into a finite number of intervals such that $g(x)$ is strictly monotone and differentiable on each partition. Then the PDF of $Y$ is given by 
+\begin{align*}
+	f_Y(y)= \sum_{i=1}^{n} \frac{f_X(x_i)}{|g'(x_i)|}= \sum_{i=1}^{n} f_X(x_i).
+	\left|\frac{dx_i}{dy}\right|,
+\end{align*}
+where $x_1,\dots,x_n$ are real solutions to $g(x)=y$.
+
+\subsection{Intuitive Explanation}
+``How to derive the PDF of the random variable $Y=g(X)$ when one knows the pdf of the random variable $X$?''. For a general function $g$, there is no direct formula to get the pdf of the random variable $Y=g(X)$ knowing the PDF of $X$. There is a formula in case when $h$ is a differentiable one-to-one mapping from the range (the support, I should say) of $X$ to the range of $Y$.
+
+Take for example a random variable $X\sim \mathcal{N}(\mu, \sigma)$ and set $Y=\exp(X)$. The figure below shows some simulations of $X$ and the corresponding values of $Y$. The density of $X$ is shown in blue and the one of $Y$ is shown in orange in the vertical direction.
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/sample.png}
+        % \caption{Caption for the first figure}
+        % \label{fig:figure1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/sample2.png}
+        % \caption{Caption for the second figure}
+        % \label{fig:figure2}
+    \end{minipage}
+    % \caption{Overall caption for the two figures}
+    % \label{fig:figures}
+\end{figure}
+Now the question is: knowing the density of $X$, what is the density of $Y$?
+Taking a point $y$ in the range of $Y$, the PDF $f_Y$ provides the probability of $Y$, belong to a small area $dy$ around $y$ by the formula below
+$$P(Y\in dy)\approx f_Y(y)|dy|,$$
+where $P(Y\in dy)$ is the area below the curve. Similarly, we can define
+$$P(X\in dx)\approx f_X(x)|dx|$$
+The above two areas are approximately the same in case of very small region. Note that if $dy$ and $dx$ are very small, we can approximate the derivative of $g'(x)=\frac{|dy|}{|dx|}$. Compactly, this can be expressed as follows:
+$$P(Y\in dy) = P(X\in dx) = f_X(x)\frac{|dy|}{g'(x)}$$
+With $y=g(x)$ we can get 
+\begin{align*}
+	P(Y\in dy) &= f_X(x)\frac{|dy|}{g'(x)}\\
+	& = f_X(g^{-1}(y))\frac{|dy|}{g'(g^{-1}(y))}\\
+	& = f_X(g^{-1}(y))|dy|(g^{-1})'(y)
+\end{align*}
+The last line is by the derivative of inverse function which is 
+$$\frac{d}{dx}f^{-1}(x) = \frac{1}{f'(f^{-1}(x))}$$
+Finally, we can get 
+$$f_Y(y) = f_X(g^{-1}(y))|(g^{-1})'(y)|$$
+Note that the absolute is determined by the function $h$. This is the so-called change of variables formula.
 
 
+\section{Various Distributions}
+
+\subsection{Uniform Distribution}
+\begin{equation*}
+	f_X(x) = \left\{
+	\begin{array}{l l}
+	\frac{1}{b-a} & \quad a < x < b\\
+	0 & \quad x < a \textrm{ or } x > b
+	\end{array} \right.
+\end{equation*}
+
+\subsection{Exponential Distribution}
+
+Check more in \href{https://www.probabilitycourse.com/chapter4/4_2_2_exponential.php}{Exponential Dist.}
+
+A continuous random variable $X$ is said to have an exponential distribution with parameter $\lambda>0$, shown as $X\sim Exponential(\lambda)$, if its PDF is given by 
+\begin{align*}
+	f_X(x) = \begin{cases}
+		\lambda e^{-\lambda x} & \quad x > 0\\
+		0 & \quad \textrm{otherwise}
+	\end{cases}
+\end{align*}
 
 
+\subsection{Gamma Distribution}
+The gamma distribution is another widely used distribution. Its importance is largely due to its relation to exponential and normal distributions. Here, we will provide an introduction to the gamma distribution. Before introducing the gamma random variable, we need to introduce the gamma function. 
+
+\paragraph{Gamma function} $\Gamma(x)$ is an extension of the factorial function to real (and complex) numbers. In specific, if $n\in \{1, 2, 3,\dots\}$, then
+$$\Gamma(n) = (n-1)!.$$
+More generally, for any positive real number $\alpha$, $\Gamma(\alpha)$ is defined as follows:
+$$\Gamma(\alpha) = \int_{0}^{\infty}x^{\alpha-1}e^{-x}dx,\ \text{for }\alpha>0.$$
+Note that for $\alpha=1$, 
+$$\Gamma(\alpha) = 1.$$
+
+\paragraph{Gamma Distribution} is a distribution with parameters $\alpha>0$ and $\lambda>0$. its PDF is given by
+\begin{align*}
+	f_X(x) = \begin{cases}
+		\frac{\lambda^\alpha x^{\alpha-1} e^{-\lambda x}}{\Gamma(\alpha)}& x>0\\
+		0&\text{otherwise}
+	\end{cases}
+\end{align*}
 
 
+\section{Gaussian Distribution}
+The normal distribution is by far \textbf{the most important probability distribution}. One of the main reasons for that is the \textit{Central Limit Theorem} (CLT). To give you an idea, the CLT states that \textit{if you add a large number of random variables, the distribution of the sum will be approximately normal under certain conditions}. The importance of this result comes from the fact that many random variables in real life can be expressed as the sum of a large number of random variables and, by the CLT, we can argue that distribution of the sum should be normal. The CLT is one of the most important results in probability and we will discuss it later on. Here, we will introduce normal random variables.
 
+We first define the standard normal random variable. We will then see that we can obtain other normal random variables by scaling and shifting a standard normal random variable. 
 
+A continuous random variable $Z$ is said to be a \textit{standard normal} (\textit{standard Gaussian}) random variable, shown as $Z\sim \mathcal{N}(0,1)$, if its PDF is given by
+$$f_Z(z) = \frac{1}{\sqrt{2 \pi}} \exp\left\{-\frac{z^2}{2}\right\}, \quad \textrm{for all } z \in \mathbb{R}.$$
+The $1/\sqrt{2\pi}$ is there to make sure that the area under the PDF is equal to one. 
 
+\subsection{Cumulative Distribution Function}
+The CDF of the standard normal distribution is denoted by the $\Phi$ function:
+$$\Phi(x)=P(Z \leq x)= \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{x}\exp\left\{-\frac{u^2}{2}\right\} du.$$
+Here are some properties of the $\Phi$ function:
+\begin{itemize}
+	\item $\lim_{x\to\infty}\Phi(x) = 1$
+	\item $\lim_{x\to-\infty}\Phi(x) = 0$
+	\item $\Phi(0) = \frac{1}{2}$
+	\item $\Phi(-x) = 1-\Phi(x), \forall x \in \mathbb{R}.$
+\end{itemize}
 
+\subsection{Multinomial}
+For a $D$-dimensional vector $\rvx$, the multivariate Gaussian distribution takes the form
+\begin{align}
+	\mathcal{N}(\mathbf{x}|\boldsymbol{\mu},\boldsymbol{\Sigma}) &= \frac{1}{(2\pi)^{D/2}|\boldsymbol{\Sigma}|^{1/2}}\exp\bigg(-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\bigg)\\
+	\label{eq:normal_distribution}
+\end{align}
 
+\subsection{Conditional Gaussian Distribution}
+Consider first the case of conditional distributions. Suppose $\rvx$ is a $D$-dimensional vector with Gaussian distribution $\mathcal{N}(\mathbf{x}|\boldsymbol{\mu},\boldsymbol{\Sigma})$ and that we partition $\rvx$ into two disjoint subsets $\rvx_a$ and $\rvx_b$. Thus, $\rvx_a$ has $M$ components and $\rvx_b$ has $D-M$ components.
+\begin{align*}
+	\rvx = \begin{bmatrix}
+		\rvx_a\\
+		\rvx_b
+	\end{bmatrix}.
+\end{align*}
+Similarly, 
+\begin{align*}
+	\boldsymbol{\mu} = \begin{bmatrix}
+		\boldsymbol{\mu}_a\\
+		\boldsymbol{\mu}_b
+	\end{bmatrix} 
+\end{align*}
+and the covariance matrix is given by
+\begin{align*}
+	\boldsymbol{\Sigma} = \begin{bmatrix}
+		\boldsymbol{\Sigma}_{aa} & \boldsymbol{\Sigma}_{ab}\\
+		\boldsymbol{\Sigma}_{ba} & \boldsymbol{\Sigma}_{bb} 
+	\end{bmatrix} 
+\end{align*}
+Note that the symmetry $\mSigma^T = \mSigma$ implies that $\mSigma_{ab}^T=\mSigma_{ba}$. We can also define a \textit{precision matrix} as follows: 
+$$\mLambda \equiv \mSigma^{-1}$$
+We also introduce a partitioned form of the precision matrix:
+\begin{align}
+	\boldsymbol{\Lambda} = \begin{bmatrix}
+		\mLambda_{aa} & \mLambda_{ab}\\
+		\mLambda_{ba} & \mLambda_{bb} 
+	\end{bmatrix} 
+	\label{eq:precision_matrix}
+\end{align}
+Because the inverse of a symmetric matrix is also symmetric, we see that $\mLambda_{aa}$ and $\mLambda_{bb}$ are symmetric and $\mLambda_{ab}^T =\mLambda_{ba}$. Note that, for instance, $\mLambda_{aa}$ is not simply given by the inverse of $\boldsymbol{\Sigma}_{aa}$. 
 
+Now let's compute the conditional probability:
+\begin{align*}
+	-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu}) &= \frac{1}{2}\Bigg(\bigg(\begin{bmatrix}
+		\rvx_a\\
+		\rvx_b
+	\end{bmatrix}-
+	\begin{bmatrix}
+		\boldsymbol{\mu}_a\\
+		\boldsymbol{\mu}_b
+	\end{bmatrix} 
+\bigg)^T\begin{bmatrix}
+		\mLambda_{aa} & \mLambda_{ab}\\
+		\mLambda_{ba} & \mLambda_{bb} 
+	\end{bmatrix}\bigg(\begin{bmatrix}
+		\rvx_a\\
+		\rvx_b
+	\end{bmatrix}-
+	\begin{bmatrix}
+		\boldsymbol{\mu}_a\\
+		\boldsymbol{\mu}_b
+	\end{bmatrix}\bigg)\Bigg)\\
+	&= -\frac{1}{2}\big((\rvx_a-\vmu_a)^T\mLambda_{aa}(\rvx_a-\vmu_a)+(\rvx_a-\vmu_a)^T\mLambda_{ab}(\rvx_a-\vmu_a)\\
+	&\quad+(\rvx_a-\vmu_a)^T\mLambda_{ba}(\rvx_a-\vmu_a)+(\rvx_a-\vmu_a)^T\mLambda_{bb}(\rvx_a-\vmu_a)\big)\\
+\end{align*}
 
+\section{Mixed Random Variables}
+The mixed random variables are random variables that are \textbf{neither discrete nor continuous, but are a mixture of both}.
 
+To find the cumulative distribution function (CDF) of \(Y\), given that \(Y = g(X)\) and the transformation \(g(X)\) is defined as:
 
+\[ 
+g(X) = 
+\begin{cases} 
+X^2 & 0 \leq X \leq \frac{1}{2} \\
+2X - 1 & \frac{1}{2} < X \leq 1 
+\end{cases}
+\]
 
+Step 1: Determine the PDF of \(X\)
 
+The given PDF of \(X\) is:
 
-% \subsection{Intuitive Explanation}
-% ``How to derive the PDF of the random variable $Y=g(X)$ when one knows the pdf of the random variable $X$?''. For a general function $g$, there is no direct formula to get the pdf of the random variable $Y=g(X)$ knowing the PDF of $X$. There is a formula in case when $h$ is a differentiable one-to-one mapping from the range (the support, I should say) of $X$ to the range of $Y$.
+\[ 
+f_X(x) = 
+\begin{cases} 
+2x & 0 \leq x \leq 1 \\
+0 & \text{otherwise}
+\end{cases}
+\]
 
-% Take for example a random variable $X\sim \mathcal{N}(\mu, \sigma)$ and set $Y=\exp(X)$. The figure below shows some simulations of $X$ and the corresponding values of $Y$. The density of $X$ is shown in blue and the one of $Y$ is shown in orange in the vertical direction.
-% \begin{figure}[ht]
-%     \centering
-%     \begin{minipage}[b]{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=\textwidth]{./images/sample.png}
-%         % \caption{Caption for the first figure}
-%         % \label{fig:figure1}
-%     \end{minipage}
-%     \hfill
-%     \begin{minipage}[b]{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=\textwidth]{./images/sample2.png}
-%         % \caption{Caption for the second figure}
-%         % \label{fig:figure2}
-%     \end{minipage}
-%     % \caption{Overall caption for the two figures}
-%     % \label{fig:figures}
-% \end{figure}
-% Now the question is: knowing the density of $X$, what is the density of $Y$?
-% Taking a point $y$ in the range of $Y$, the PDF $f_Y$ provides the probability of $Y$, belong to a small area $dy$ around $y$ by the formula below
-% $$P(Y\in dy)\approx f_Y(y)|dy|,$$
-% where $P(Y\in dy)$ is the area below the curve. Similarly, we can define
-% $$P(X\in dx)\approx f_X(x)|dx|$$
-% The above two areas are approximately the same in case of very small region. Note that if $dy$ and $dx$ are very small, we can approximate the derivative of $g'(x)=\frac{|dy|}{|dx|}$. Compactly, this can be expressed as follows:
-% $$P(Y\in dy) = P(X\in dx) = f_X(x)\frac{|dy|}{g'(x)}$$
-% With $y=g(x)$ we can get 
-% \begin{align*}
-% 	P(Y\in dy) &= f_X(x)\frac{|dy|}{g'(x)}\\
-% 	& = f_X(g^{-1}(y))\frac{|dy|}{g'(g^{-1}(y))}\\
-% 	& = f_X(g^{-1}(y))|dy|(g^{-1})'(y)
-% \end{align*}
-% The last line is by the derivative of inverse function which is 
-% $$\frac{d}{dx}f^{-1}(x) = \frac{1}{f'(f^{-1}(x))}$$
-% Finally, we can get 
-% $$f_Y(y) = f_X(g^{-1}(y))|(g^{-1})'(y)|$$
-% Note that the absolute is determined by the function $h$. This is the so-called change of variables formula.
+Step 2: Determine the ranges of \(Y\)
 
+The ranges of \(Y\) are derived from the transformation:
+
+1. For \(0 \leq X \leq \frac{1}{2}\):
+\[ Y = X^2 \]
+\[ 0 \leq Y \leq \left(\frac{1}{2}\right)^2 = \frac{1}{4} \]
+
+2. For \(\frac{1}{2} < X \leq 1\):
+\[ Y = 2X - 1 \]
+\[ 2\left(\frac{1}{2}\right) - 1 < Y \leq 2(1) - 1 \]
+\[ 0 < Y \leq 1 \]
+
+Combining these, we get the range of \(Y\) as \(0 \leq Y \leq 1\).
+
+Step 3: Find the CDF of \(Y\)
+
+The CDF of \(Y\), \(F_Y(y)\), is given by \(F_Y(y) = P(Y \leq y)\). We need to consider the two different transformations:
+
+1. For \(0 \leq y \leq \frac{1}{4}\):
+\[ Y = X^2 \]
+\[ P(Y \leq y) = P(X^2 \leq y) = P(X \leq \sqrt{y}) \]
+\[ F_Y(y) = P(X \leq \sqrt{y}) = \int_{0}^{\sqrt{y}} 2x \, dx \]
+\[ F_Y(y) = \left[ x^2 \right]_{0}^{\sqrt{y}} = (\sqrt{y})^2 = y \]
+
+2. For \(\frac{1}{4} < y \leq 1\):
+\[ Y = 2X - 1 \]
+\[ P(Y \leq y) = P(2X - 1 \leq y) = P(X \leq \frac{y+1}{2}) \]
+\[ F_Y(y) = P(X \leq \frac{y+1}{2}) = \int_{0}^{\frac{y+1}{2}} 2x \, dx \]
+\[ F_Y(y) = \left[ x^2 \right]_{0}^{\frac{y+1}{2}} = \left( \frac{y+1}{2} \right)^2 \]
+\[ F_Y(y) = \frac{(y+1)^2}{4} \]
+
+Combining these results, the CDF of \(Y\) is:
+
+\[ 
+F_Y(y) = 
+\begin{cases} 
+y & 0 \leq y \leq \frac{1}{4} \\
+\frac{(y+1)^2}{4} & \frac{1}{4} < y \leq 1
+\end{cases}
+\]
 
