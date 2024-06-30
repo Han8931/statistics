@@ -5,7 +5,9 @@ Remember that discrete random variables can take only a countable number of poss
 
 \section{Probability Density Function (PDF)}
 
-To determine the distribution of a discrete random variable we can either provide its PMF or CDF. For continuous random variables, the CDF is well-defined so we can provide the CDF. However, \textbf{the PMF does not work for continuous random variables, because for a continuous random variable} $P(X=x)=0,\ \forall x\in \mathbb{R}$. Instead, we can usually define the probability density function (PDF). The PDF is the $density$ of probability rather than the probability mass. The concept is very similar to mass density in physics: its unit is probability per unit length. To get a feeling for PDF, consider a continuous random variable $X$ and define the function $f_X(x)$ as follows (wherever the limit exists):
+To determine the distribution of a discrete random variable we can either provide its PMF or CDF. For continuous random variables, the CDF is well-defined so we can provide the CDF. However, \textbf{the PMF does not work for continuous random variables, because for a continuous random variable} $P(X=x)=0,\ \forall x\in \mathbb{R}$. Instead, we can usually define the \textit{probability density function} (PDF). The PDF is the $density$ of probability rather than the probability mass. The concept is very similar to mass density in physics: its unit is probability per unit length. For example, let the bus waiting time be uniformly distributed: $X\sim[10,30]$. The probability of waiting between 15 and 20 minutes is: 
+$$P(X<15)=\int_{15}^{20} \frac{1}{20}\, dx=\frac1{20}\cdot (20-15)=\frac14=0.25.$$
+So, the mass is analogous to the interval ($[a,b]=[15,20]$) and the volume is analogous to the entire range ($[c,d]=[10,30]$). To get a feeling for PDF, consider a continuous random variable $X$ and define the function $f_X(x)$ as follows (wherever the limit exists):
 $$f_X(x)=\lim_{\Delta \rightarrow 0^+} \frac{P(x < X \leq x+\Delta)}{\Delta}.$$
 The function $f_X(x)$ gives us the probability density at point $x$. It is the limit of the probability of the interval $(x,x+\Delta]$ divided by the length of the interval as the length of the interval goes to $0$. Remember that 
 $$P(x<X\leq x+\Delta) = F_X(x+\Delta)-F_X(x).$$
@@ -324,57 +326,142 @@ X^2 & 0 \leq X \leq \frac{1}{2} \\
 \end{cases}
 \]
 
-Step 1: Determine the PDF of \(X\)
+\begin{enumerate} 
+	\item Determine the PDF of \(X\). The given PDF of \(X\) is:
+	\[ 
+	f_X(x) = 
+	\begin{cases} 
+	2x & 0 \leq x \leq 1 \\
+	0 & \text{otherwise}
+	\end{cases}
+	\]
+\item Determine the ranges of \(Y\). The ranges of \(Y\) are derived from the transformation:
+	\begin{itemize}
+		\item For \(0 \leq X \leq \frac{1}{2}\):
+			\[ Y = X^2 \]
+			\[ 0 \leq Y \leq \left(\frac{1}{2}\right)^2 = \frac{1}{4} \]
 
-The given PDF of \(X\) is:
+		\item For \(\frac{1}{2} < X \leq 1\):
+			\[ Y = 2X - 1 \]
+			\[ 2\left(\frac{1}{2}\right) - 1 < Y \leq 2(1) - 1 \]
+			\[ 0 < Y \leq 1 \]
+		\end{itemize}
+	\item Combining these, we get the range of \(Y\) as \(0 \leq Y \leq 1\). Find the CDF of \(Y\). The CDF of \(Y\), \(F_Y(y)\), is given by \(F_Y(y) = P(Y \leq y)\). We need to consider the two different transformations:
+		\begin{enumerate}
+			\item For \(0 \leq y \leq \frac{1}{4}\):
+				\[ Y = X^2 \]
+				\[ P(Y \leq y) = P(X^2 \leq y) = P(X \leq \sqrt{y}) \]
+				\[ F_Y(y) = P(X \leq \sqrt{y}) = \int_{0}^{\sqrt{y}} 2x \, dx \]
+				\[ F_Y(y) = \left[ x^2 \right]_{0}^{\sqrt{y}} = (\sqrt{y})^2 = y \]
+			\item For \(\frac{1}{4} < y \leq 1\):
+				\[ Y = 2X - 1 \]
+				\[ P(Y \leq y) = P(2X - 1 \leq y) = P(X \leq \frac{y+1}{2}) \]
+				\[ F_Y(y) = P(X \leq \frac{y+1}{2}) = \int_{0}^{\frac{y+1}{2}} 2x \, dx \]
+				\[ F_Y(y) = \left[ x^2 \right]_{0}^{\frac{y+1}{2}} = \left( \frac{y+1}{2} \right)^2 \]
+				\[ F_Y(y) = \frac{(y+1)^2}{4} \]
+		\end{enumerate}
+	\item Combining these results, the CDF of \(Y\) is:
+		\[ 
+		F_Y(y) = 
+		\begin{cases} 
+		y & 0 \leq y \leq \frac{1}{4} \\
+		\frac{(y+1)^2}{4} & \frac{1}{4} < y \leq 1
+		\end{cases}
+		\]
+\end{enumerate}
 
-\[ 
-f_X(x) = 
-\begin{cases} 
-2x & 0 \leq x \leq 1 \\
-0 & \text{otherwise}
-\end{cases}
-\]
+\subsection{Delta Function}
+In this section, we will \textbf{use the Dirac delta function to analyze mixed random variables}. Technically speaking, \textit{the Dirac delta function is not actually a function}. It is what we may call a generalized function. Nevertheless, its definition is intuitive and it simplifies dealing with probability distributions.
 
-Step 2: Determine the ranges of \(Y\)
+Remember that any random variable has a CDF. Thus, we can use the CDF to answer questions regarding discrete, continuous, and mixed random variables. On the other hand, the PDF is defined only for continuous random variables, while the PMF is defined only for discrete random variables. Using \textbf{delta functions will allow us to define the PDF for discrete and mixed random variables.} Thus, it allows us to unify the theory of discrete, continuous, and mixed random variables.
 
-The ranges of \(Y\) are derived from the transformation:
+\paragraph{Dirac Delta Function}
+We cannot define the PDF for a discrete random variable because its CDF has jumps. If we could somehow differentiate the CDF at jump points, we would be able to define the PDF for discrete random variables as well. This is the idea behind our effort in this section. Here, we will introduce the \textit{Dirac delta function} and discuss its application to probability distributions. Let's derive the Dirac delta function. 
 
-1. For \(0 \leq X \leq \frac{1}{2}\):
-\[ Y = X^2 \]
-\[ 0 \leq Y \leq \left(\frac{1}{2}\right)^2 = \frac{1}{4} \]
+First, consider the following unit step function $u(x)$:
+\begin{equation*}
+	u(x) = \left\{
+	\begin{array}{l l}
+	1 & \quad x \geq 0 \\
+	0 & \quad \text{otherwise}
+	\end{array} \right.
+\end{equation*}
+This function has a discontinuity at $x=0$. Let us remove the jump and define, for any $\alpha>0$, the function $u_\alpha(x)$ as 
 
-2. For \(\frac{1}{2} < X \leq 1\):
-\[ Y = 2X - 1 \]
-\[ 2\left(\frac{1}{2}\right) - 1 < Y \leq 2(1) - 1 \]
-\[ 0 < Y \leq 1 \]
+\begin{equation*}
+	u_{\alpha}(x) = \left\{
+	\begin{array}{l l}
+	1 & \quad x > \frac{\alpha}{2} \\
+	\frac{1}{\alpha} (x+\frac{\alpha}{2}) & \quad -\frac{\alpha}{2} \leq x \leq \frac{\alpha}{2} \\
+	0 & \quad x < -\frac{\alpha}{2}
+	\end{array} \right.
+\end{equation*}
 
-Combining these, we get the range of \(Y\) as \(0 \leq Y \leq 1\).
+The good thing about $u_\alpha(x)$ is that it is a continuous function. Now let us define the function $\delta_\alpha(x)$ as the derivative of $u_\alpha(x)$ wherever it exists. 
 
-Step 3: Find the CDF of \(Y\)
+\begin{equation*}
+	\delta_{\alpha}(x)=\frac{ d u_{\alpha}(x)}{dx} = \left\{
+	\begin{array}{l l}
+	\frac{1}{\alpha} & \quad |x| < \frac{\alpha}{2} \\
+	0 & \quad |x| > \frac{\alpha}{2}
+	\end{array} \right.
+\end{equation*}
+We can notice that 
+\begin{align*}
+	\delta_{\alpha}(x)=\frac{d}{dx} u_{\alpha}(x), \quad u(x) \overset{\text{a.e.}}{=} \lim_{\alpha \rightarrow 0} u_{\alpha}(x) \footnotemark
+\end{align*}
 
-The CDF of \(Y\), \(F_Y(y)\), is given by \(F_Y(y) = P(Y \leq y)\). We need to consider the two different transformations:
+\footnotetext{The term almost everywhere is abbreviated a.e.; in older literature p.p. is used, to stand for the equivalent French language phrase presque partout.} Now, we would like to define the delta ``function'', $\delta(x)$, as 
 
-1. For \(0 \leq y \leq \frac{1}{4}\):
-\[ Y = X^2 \]
-\[ P(Y \leq y) = P(X^2 \leq y) = P(X \leq \sqrt{y}) \]
-\[ F_Y(y) = P(X \leq \sqrt{y}) = \int_{0}^{\sqrt{y}} 2x \, dx \]
-\[ F_Y(y) = \left[ x^2 \right]_{0}^{\sqrt{y}} = (\sqrt{y})^2 = y \]
+$$\delta(x) = \lim_{\alpha \rightarrow 0} \delta_{\alpha}(x).$$
+Note that as $\alpha$ becomes smaller and smaller, the height of $\delta_\alpha(x)$ becomes larger and larger and its width becomes smaller and smaller. Taking the limit, we obtain 
+\begin{equation*}
+	\delta(x) = \left\{
+	\begin{array}{l l}
+	\infty & \quad x=0 \\
+	0 & \quad \text{otherwise}
+	\end{array} \right.
+\end{equation*}
+Equivalently, 
+$$\delta(x)=\frac{d}{dx} u(x).$$
+Intuitively, with extremely small $\alpha$, we would like to have the following definitions. Let $g: \mathbb{R}\to\mathbb{R}$ be a continuous function. We define
+\begin{align*}
+	\int_{-\infty}^{\infty} g(x) \delta(x-x_0) dx = \lim_{\alpha \rightarrow 0}
+	\bigg[ \int_{-\infty}^{\infty} g(x) \delta_{\alpha} (x-x_0) dx \bigg]
+\end{align*}
+Then, we have the following lemma, which in fact is the most useful property of the delta function.
 
-2. For \(\frac{1}{4} < y \leq 1\):
-\[ Y = 2X - 1 \]
-\[ P(Y \leq y) = P(2X - 1 \leq y) = P(X \leq \frac{y+1}{2}) \]
-\[ F_Y(y) = P(X \leq \frac{y+1}{2}) = \int_{0}^{\frac{y+1}{2}} 2x \, dx \]
-\[ F_Y(y) = \left[ x^2 \right]_{0}^{\frac{y+1}{2}} = \left( \frac{y+1}{2} \right)^2 \]
-\[ F_Y(y) = \frac{(y+1)^2}{4} \]
+Let $g: \mathbb{R}\to\mathbb{R}$ be a continuous function. We have
+$$\int_{-\infty}^{\infty} g(x) \delta(x-x_0) dx = g(x_0).$$
 
-Combining these results, the CDF of \(Y\) is:
 
-\[ 
-F_Y(y) = 
-\begin{cases} 
-y & 0 \leq y \leq \frac{1}{4} \\
-\frac{(y+1)^2}{4} & \frac{1}{4} < y \leq 1
-\end{cases}
-\]
+\paragraph{Using the Delta Function in PDFs of Discrete and Mixed RV} Consider a discrete random variable $X$ with range $R_X=\{x_1,\dots,\x_n\}$ and PMF $P_X(x_k)$. Note that the CDF for X can be written as 
+$$F_X(x)=\sum_{x_k \in R_X} P_X(x_k)u(x-x_k).$$
+where:
+\begin{itemize}
+	\item \( u(x - x_k) \) is the Heaviside step function, which is defined as:
+	  \[
+	  u(x - x_k) = \begin{cases} 
+	  0 & \text{if } x < x_k \\
+	  1 & \text{if } x \ge x_k 
+	  \end{cases}
+	  \]
+\end{itemize}
+The sum \( \sum_{x_k \in \mathbb{R}_X} P_X(x_k) u(x - x_k) \) effectively includes only those \( x_k \) values that are less than or equal to \( x \) due to the step function \( u(x - x_k) \). Therefore, it accumulates the probabilities \( P_X(x_k) \) for all \( x_k \le x \).
+
+Now that we have symbolically defined the derivative of the step function as the delta function, we can write a PDF for $X$ by ``differentiating'' the CDF:
+
+\begin{align*}
+	f_X(x) &= \frac{dF_X(x)}{dx}\\ 
+		   &= \sum_{x_k\in R_X}P_X(x_k)\frac{d}{dx}u(x-x_k)\\
+		   &= \sum_{x_k\in R_X}P_X(x_k)\delta(x-x_k)
+\end{align*}
+We call this the \textbf{generalized PDF}.
+$$EX=\int_{-\infty}^{\infty} xf_X(x)dx.$$
+\begin{align*}
+	EX &= \int_{-\infty}^{\infty} xf_X(x)dx\\
+	   &= \int_{-\infty}^{\infty} x\sum_{x_k\in R_X}P_X(x_k)\delta(x-x_k)dx\\
+	   &= \sum_{x_k\in R_X}P_X(x_k)\int_{-\infty}^{\infty}x\delta(x-x_k)dx\\
+	   &= \sum_{x_k\in R_X}x_kP_X(x_k)
+\end{align*}
 

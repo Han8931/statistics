@@ -1,0 +1,48 @@
+\chapter{Joint Distributions}
+
+In real life, we are often \textbf{interested in several random variables that are related to each other.} For example, suppose that we choose a random family, and we would like to study the number of people in the family, the household income, the ages of the family members, etc. Each of these is a random variable, and we suspect that they are dependent. In this chapter, we develop tools to study joint distributions of random variables. The concepts are similar to what we have seen so far. The only difference is that instead of one random variable, we consider two or more. In this chapter, we will focus on two random variables, but once you understand the theory for two random variables, the extension to $n$ random variables is straightforward. We will first discuss joint distributions of discrete random variables and then extend the results to continuous random variables.
+
+\section{Joint PMF}
+Recall that for a discrete RV $X$, we define the PMF as $P_X(x) = P(X=x)$. Now, if we have two RVs $X$ and $Y$, we define the joint PMF as follows:
+$$P_{XY}(x,y) = P(X=x, Y=y).$$
+Note that the comma means ``and'', so we can write as 
+\begin{align*}
+	P_{XY}(x,y) &= P(X=x, Y=y)\\
+				&= P(X=x \text{ and } Y=y)\\
+				&= P(X=x \cap Y=y)
+\end{align*}
+We can define the joint range for $X$ and $Y$ as
+$$R_{XY} = \{(x,y)|P_{XY}(x,y)>0\}.$$
+In particular, if $R_{X} = \{x_1,x_2,\dots\}$ and $R_{Y} = \{y_1,y_2,\dots\}$, then 
+\begin{align*}
+	R_{XY} &\subset R_X\times R_Y\\ 
+		   &= R_{XY} = \{(x_i,y_j)|x_i\in R_{X}, y_j\in R_{Y}\}.
+\end{align*}
+For two discrete RVs, we have
+$$\sum_{(x_i,y_j)\in R_{XY}}P_{XY}(x_i,y_j) = 1$$
+We can use the joint PMF to find $P((X,Y)\in A)$ for any set $A\subset \mathbb{R}^2$. Specifically, we have
+$$P((X,Y)\in A) = \sum_{(x_i,y_j)\in (A\cap R_{XY})}P_{XY}(x_i,y_j)$$
+
+\section{Joint CDF}
+The joint cumulative distribution function of two random variables $X$ and $Y$ is defined as
+$$F_{XY}(x,y) = P(X\leq x, Y\leq y).$$
+Equivalently, 
+\begin{align*}
+	F_{XY}(x,y) &= P(X\leq x, Y\leq y)\\
+				&= P(X\leq x \cap Y\leq y)
+\end{align*}
+If we know the CDF of $X$ and $Y$, we can find the \textit{marginal} CDFs, $F_X(x)$ and $F_Y(y)$. Specifically, for any $x\in \mathbb{R}$, we have
+\begin{align*}
+	F_{XY}(x,\infty) &= P(X\leq x, Y\leq \infty)\\
+				&= P(X\leq x)\\
+				&= F_X(x)
+\end{align*}
+
+\section{Conditioning and Independence}
+
+\begin{align*}
+	 P(A|B)=\frac{P(A \cap B)}{P(B)},\, \textrm{ when } P(B)>0.
+\end{align*}
+
+\subsection{Conditional PMF and CDF}
+
