@@ -154,8 +154,45 @@ Note that if $X$ and $Y$ are independent,
 \end{itemize}
 
 \subsection{Conditional Variance}
-We can define the conditional variance of $X$, $Var(X|Y=y)$:
+We can define the conditional variance of $X$, $Var(X|Y=y)$. Let $\mu_{X|Y}(y) = E[X|Y=y]$, then
+\begin{align*}
+	Var(X|Y=y) &= E[\left(X-\mu_{X|Y}(y)\right)^2|Y=y]\\
+			   &= \sum_{x_i\in R_X}\left(x_i-\mu_{X|Y}(y)\right)^2P_{X|Y}(x_i)\\
+			   &= E[X^2|Y=y] - \mu_{X|Y}(y)^2
+\end{align*}
+Note that $Var(X|Y=y)$ is a function of $y$.  
 
+\section{Two Continuous Random Variables}
+
+\subsection{Joint Probability Density Function}
+
+Two random variables are jointly continuous if they have a joint probability density function as follows:
+
+Two random variables $X$ and $Y$ are jointly continuous if there exists a non-negative function $f_{XY}: \mathbb{R}^2\to \mathbb{R}$, such that, for any set $A\in \mathbb{R}^2$, we have
+\begin{align*}
+	P((X,Y)\in A) = \iint\limits_{A}f_{XY}(x,y)dxdy.
+\end{align*}
+The function $f_{XY}(x,y)$ is called the joint probability density function of $X$ and $Y$. The domain of $f_{XY}(x,y)$ is the entire $\mathbb{R}^2$ and the range is
+$$R_{XY} = \{(x,y)|f_{XY}(x,y)>0\}.$$
+The intuition behind the joint density is similar to that of the PDF of a single random variable. Recall that a random variable $X$ and small positive $\delta$, we have
+$$P(x<X\leq x+\delta)\approx f_X(x)\delta.$$
+Similarly, for small $\delta_x$ and $\delta_y$, 
+$$P(x<X\leq x+\delta_x, y\leq Y\leq y+\delta_y)\approx f_{XY}(x,y)\delta_x\delta_y.$$
+
+\subsection{Joint CDF}
+
+\subsection{Conditioning and Independence}
+
+\subsection{Functions of Two Continuous Random Variables}
+
+LOTUS for two continuous random variables:
+\begin{align*}
+	E[g(X,Y)]=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x,y)f_{XY}(x,y) dxdy 
+\end{align*}
+
+\paragraph{The Method of Transformations}
+
+Let $X$ and $Y$ be two jointly continuous random variables. 
 
 
 
