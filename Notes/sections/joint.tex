@@ -39,10 +39,123 @@ If we know the CDF of $X$ and $Y$, we can find the \textit{marginal} CDFs, $F_X(
 \end{align*}
 
 \section{Conditioning and Independence}
-
 \begin{align*}
 	 P(A|B)=\frac{P(A \cap B)}{P(B)},\, \textrm{ when } P(B)>0.
 \end{align*}
 
 \subsection{Conditional PMF and CDF}
+The conditional PMF of $X$ given an event $A$ is given by
+\begin{align*}
+	P_{X|A}(x_i) &= P(X=x_i|A)\\
+				 &= \frac{P(X=x_i \text{ and }A)}{P(A)}
+\end{align*}
+Similarly, 
+\begin{align*}
+	F_{X|A}(x) = P(X\leq x|A)
+\end{align*}
+
+\subsection{Conditional PMF of $X$ given $Y$}
+We have observed the value of a random variable $Y$, and we need to update the PMF of another random variable $X$ whose value has not yet been  observed. In these problems, we use the conditional PMF of $X$ given $Y$:  
+\begin{align*}
+	P_{X|Y}(x_i|y_j) &= P(X=x_i|Y=y_j)\\
+				 &= \frac{P(X=x_i, Y=y_j)}{P(Y=y_j)}\\
+				 &= \frac{P_{XY}(x_i,y_j)}{P_Y(y_j)}
+\end{align*}
+
+\subsection{Independent Random Variables}
+Two discrete RVs $X$ and $Y$ are independent if 
+$$P_{XY}(x,y) = P_X(x)P_Y(y), \forall x, y.$$
+Equivalently, 
+$$F_{XY}(x,y) = F_X(x)F_Y(y), \forall x, y.$$
+
+If $X$ and $Y$ are independent, 
+$$P_{X|Y}(x_i|y_j) = P_X(x_i).$$
+
+\subsection{Conditional Expectation}
+Given that we know an event $A$ has occurred, we can compute the conditional expectation of a RV $X$, $E[X|A]$: 
+\begin{align*}
+	E[X|A] = \sum_{x_i\in R_X}x_iP_{X|A}(x_i).
+\end{align*}
+Similarly, given that we have observed the value of random variable $Y$, we can compute the conditional expectation of $X$:
+\begin{align*}
+	E[X|Y=y] = \sum_{x_i\in R_X}x_iP_{X|Y}(x_i|y).
+\end{align*}
+
+\section{The Law of Total Probability}
+Recall that the law of total probability: If $B_1,B_2,\dots$ is a partition of the sample space $S$, then for any event $A$ we have
+\begin{align*}
+	P(A) = \sum_i P(A\cap B_i) = \sum_i P(A| B_i)P(B_i).
+\end{align*}
+If $Y$ is a discrete random variable with range $R_y=\{y_1,y_2,\dots\}$, then the events $\{Y=y_1\}, \{Y=y_2\}, \dots$,  form a partition of the sample space. Thus, we can use the law of total probability:
+\begin{align*}
+	P_X(x) = \sum_{y_j\in R_Y}P_{XY}( x,y_j ) = \sum_{y_j\in R_Y}P_{X|Y}( x|y_j )P_Y(y_j).
+\end{align*}
+We can write this more generally as
+\begin{align*}
+	P(X\in A) = \sum_{y_j\in R_Y}P( X\in A | Y=y_j ) P_Y(y_j), \, \text{ for any set} A.
+\end{align*}
+Similarly, we can write the law of total expectation:
+\begin{align*}
+	EX &= \sum_{i}E[X|B_i]P(B_i)\\
+	EX &= \sum_{y_j\in R_Y}E[X|Y=y_i]P_Y(y_j).
+\end{align*}
+This means that the expected value of $X$ can be calculated from the probability distribution of $X|Y$ and $Y$, which is often useful both in theory and practice.
+
+\section{Functions of Two Random Variables}
+Suppose that you have two discrete random variables $X$ and $Y$, and suppose that $Z = g(X,Y)$, where $g: \mathbb{R}^2\to\mathbb{R}$. Then, the PMF of $Z$ is given by
+\begin{align*}
+	P_Z(z) &= P(g(X,Y)=z)\\
+		   &= \sum_{(x_i,y_j)\in A_z}P_{XY}(x_i,y_j), 
+\end{align*}
+where $A_z = \{(x_i,y_j)\in R_{XY}: g(x_i,y_j) = z\}$. Note that if we are only interested in $E[g(X,Y)]$, we can directly use LOTUS, without finding $P_Z(z)$:
+\begin{align*}
+	E[g(X,Y)] = \sum_{(x_i,y_j)\in R_{XY}} g(x_i,y_j)P_{XY}(x_i,y_j).
+\end{align*}
+
+\section{Conditional Expectation and Conditional Variance}
+
+\subsection{Conditional Expectation as a Function of a Random Variable}
+
+Note that 
+\begin{itemize}
+	\item $E[X]$ is a scalar value
+	\item $E[X|Y]$ is a random variable, because the value depends on $Y$.
+\end{itemize}
+\begin{align*}
+	E[X] &= \sum_x x \cdot p(x)\\
+	E[E[X|Y]] &= E[X]
+\end{align*}
+Since, $E[E[X|Y]]$ is the function of $Y$. It is also called \textit{the law of iterated expectations}.
+\begin{align*}
+	\mathbbm{E}[\mathbbm{E}[X|Y]]&= \mathbbm{E}\Bigg[\sum_{x}x\cdot P(X=x|Y)\Bigg]\\
+	&= \sum_y\Bigg[\sum_{x}x\cdot P(X=x|Y)\Bigg]\cdot P(Y=y)\\
+	&= \sum_y\sum_{x}x\cdot P(X=x,Y)\\
+	&= \sum_x x\sum_{y}\cdot P(X=x,Y)\\
+	&= \sum_x x\cdot P(X=x)\\
+	&= \mathbbm{E}[X]
+\end{align*}
+\begin{align*}
+E[Y \mid X = x] &= \sum_y y\cdot p_{Y\mid X}(y\mid X = x)\\
+&= \sum_y y \cdot \frac{p_{X,Y}(x,y)}{p_X(x)}\\
+&= \sum_y y \cdot \frac{\sum_z p_{X,Y,Z}(x,y,z)}{p_X(x)}\\
+&= \sum_y y \cdot \frac{\sum_z p_{Y\mid X,Z}(y \mid X=x, Z=z)\cdot p_{X,Z}(x,z)}{p_X(x)}\\
+&= \sum_z \frac{p_{X,Z}(x,z)}{p_X(x)}\sum_y y \cdot p_{Y\mid X,Z}(y \mid X=x, Z=z)\\
+&= \sum_z p_{Z\mid X}(z \mid X=x)\cdot \sum_y y \cdot p_{Y\mid X,Z}(y \mid X=x, Z=z)\\
+&= \sum_z p_{Z\mid X}(z \mid X=x)\cdot E[Y \mid X=x, Z=z)\\
+&= E\left[E[Y\mid X,Z]\mid X = x\right]
+\end{align*}
+
+Note that if $X$ and $Y$ are independent,
+\begin{itemize}
+	\item $E[X|Y] = EX$. 
+	\item $E[g(X)|Y] = E[g(X)]$. 
+	\item $E[XY] = EXEY$. 
+	\item $E[g(X)h(Y)] = E[g(X)]E[h(Y)]$. 
+\end{itemize}
+
+\subsection{Conditional Variance}
+We can define the conditional variance of $X$, $Var(X|Y=y)$:
+
+
+
 
