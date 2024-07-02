@@ -192,7 +192,83 @@ LOTUS for two continuous random variables:
 
 \paragraph{The Method of Transformations}
 
-Let $X$ and $Y$ be two jointly continuous random variables. 
+\begin{theorem}{The Method of Transformations}
+	Let $X$ and $Y$ be two jointly continuous random variables. Let $(Z,W) = g(X,Y) = (g_1(X,Y), g_2(X,Y))$, where $g: \mathbb{R}^2\to \mathbb{R}^2$ is a continuous one-to-one (invertible) function with continuous partial derivatives. Let $h=g^{-1}$, \ie $(X,Y) = h(Z,W) = (h_1(Z,W), h_2(Z,W))$. Then $Z$ and $W$ are jointly continuous and their joint PDF, $f_{ZW}(z,w)$ for $(z,w)\in R_{ZW}$ is given by 
+	$$f_{ZW}(z,w) = f_{XY}(h_1(z,w), h_2(z,w))|J|},$$
+	where $J$ is the Jacobian of $h$ defined by 
+	\begin{align*}
+		J &= \text{det}\begin{bmatrix}
+			\frac{\partial h_1}{\partial z} & \frac{\partial h_1}{\partial w}\\
+			\frac{\partial h_2}{\partial z} & \frac{\partial h_2}{\partial w}
+		\end{bmatrix}\\
+		  &= \frac{\partial h_1}{\partial z}\cdot \frac{\partial h_2}{\partial w} - \frac{\partial h_2}{\partial z}\frac{\partial h_w}{\partial w}.
+	\end{align*}
+\end{theorem}
+
+\paragraph{Example} Let $X$ and $Y$ be two independent standard normal RVs. Let 
+\begin{align*}
+	\begin{cases}
+		Z&= 2X-Y\\
+		W&= -X+Y
+	\end{cases}
+\end{align*}
+Find $f_{ZW}(z, w)$.
+
+$X$ and $Y$ are jointly continuous and their joint PDF is given by
+$$f_{XY}(x,y) = f_X(x)f_Y(y)$$
+Here, the function $g$ is defined by $(z,w) = g(x,y) = (g_1(x,y), g_2(x,y)) = (2x-y,-x+y)$. We can obtain the inverse function $h$:
+\begin{align*}
+	\begin{cases}
+		x &= z+w = h_1(z,w)\\
+		y &= z+2w =  h_w(z,w)
+	\end{cases}
+\end{align*}
+
+\paragraph{Example} Let $X$ and $Y$ be two RVs with joint PDF  $f_{XY}(x,y)$. Let $Z = X+Y$. Find $f_Z(z)$.
+
+To apply the above theorem, we need two random variables $Z$ and $W$.  We can simply define $W=X$. Then, we get
+\begin{align*}
+	\begin{cases}
+		z &= x+y \\
+		w &= x
+	\end{cases}
+\end{align*}
+Then, we can find the inverse transform:
+\begin{align*}
+	\begin{cases}
+		x &= w \\
+		y &= z-w
+	\end{cases}
+\end{align*}
+Subsequently, we have 
+$$|J| = 1.$$
+Thus, 
+$$f_{ZW}(z,w) = f_{XY}(w,z-w).$$
+However, we are interested in the marginal PDF, $f_Z(z)$, we can get it by
+$$f_Z(z) = \int_{-\infty}^{\infty}f_{XY}(w, z-w)dw.$$
+Note that if $X$ and $Y$ are independent, then $f_{XY}(x,y) = f_{X}(x)f_{Y}(y)$ and we conclude that 
+$$f_Z(z) = \int_{-\infty}^{\infty}f_{X}(w)f_{Y}(z-w)dw.$$
+The above integral is called the \textit{convolution} of $f_X$ and $f_Y$, and we write
+\begin{align*}
+	f_Z(z) &= f_X*f_Y\\
+		   &= \int_{-\infty}^{\infty}f_{X}(w)f_{Y}(z-w)dw = \int_{-\infty}^{\infty}f_{Y}(w)f_{X}(z-w)dw
+\end{align*}
+The convolution can be thought as a sum of two independent RVs.
+
+\paragraph{Example} Let $X$ and $Y$ be two independent standard RVs, and let $Z = X+Y$. Find the PDF of $Z$.
+
+We have 
+\begin{align*}
+	f_Z(z) &= f_X(x)+ f_Y(y)\\
+		   &= \int_{-\infty}^{\infty}f_X(w)f_Y(z-w)dw\\
+		   &= \int_{-\infty}^{\infty}\frac{1}{2\pi}e^{-\frac{w^2}{2}}e^{-\frac{(z-w)^2}{2}}dw\\
+		   &= \frac{1}{\sqrt{4\pi}}e^{-\frac{z^2}{4}}\int_{-\infty}^{\infty}\frac{1}{\sqrt{\pi}}e^{-\left(w-\frac{z}{2}\right)^2}dw\\
+		   &= \frac{1}{\sqrt{4\pi}}e^{-\frac{z^2}{4}}
+\end{align*}
 
 
+Note that if $X\sim \mathcal{N}\left(\mu_X, \sigma_X^2\right)$ and $Y\sim \mathcal{N}\left(\mu_Y, \sigma_Y^2\right)$ are independent, then 
+$$X+Y\sim \mathcal{N}\left(\mu_X+\mu_Y, \sigma_X^2+\sigma_Y^2\right).$$
+
+\section{Covariance and Correlation}
 
