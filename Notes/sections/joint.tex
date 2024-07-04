@@ -272,3 +272,73 @@ $$X+Y\sim \mathcal{N}\left(\mu_X+\mu_Y, \sigma_X^2+\sigma_Y^2\right).$$
 
 \section{Covariance and Correlation}
 
+Consider two RVs $X$ and $Y$. Here, we define the covariance between $X$ and $Y$, $\text{Cov}(X,Y)$. The covariance gives some information about how $X$ and $Y$ are statistically related. The covariance between $X$ and $Y$ is defined as
+\begin{align*}
+	\text{Cov}(X,Y) = E[(X-EX)(Y-EY)] = E[XY]-(EX)(EY)
+\end{align*}
+Note that
+\begin{align*}
+	E[(X-EX)(Y-EY)] &= E[XY-X(EY)-(EX)Y+(EX)(EY)]\\
+					&= E[XY]-(EX)(EY)-(EX)(EY)+(EX)(EY)]\\
+					&= E[XY]-(EX)(EY).
+\end{align*}
+Intuitively, the covariance between $X$ and $Y$ indicates how the values of $X$ and $Y$ move relative to each other. If large values of $X$ tend to happen with large values of $Y$, then the covariance is positive and we say $X$ and $Y$ are positively correlated. 
+
+The covariance has the following properties:
+\begin{itemize}
+	\item $\text{Cov}(X,X) = \text{Var}(X)$ 
+	\item If $X$ and $Y$ are independent, then $\text{Cov}(X,Y) = 0$, since $E[XY] = EXEY$, so it is zero.
+	\item $\text{Cov}(X,Y) = \text{Cov}(Y,X)$ 
+	\item $\text{Cov}(aX,Y) = a\text{Cov}(X,Y)$ 
+	\item $\text{Cov}(X+c,Y) = \text{Cov}(X,Y)$ 
+	\item $\text{Cov}(X+Y,Z) = \text{Cov}(X,Z)+\text{Cov}(Y,Z)$ 
+	\item More generally, 
+		\begin{align*}
+			\text{Cov}\left(\sum_{i=1}^{m}a_iX_i,\sum_{j=1}^{n}b_jY_j\right) = \sum_{i=1}^{m}\sum_{j=1}^{n}a_ib_j\text{Cov}(X_i,Y_j).
+		\end{align*}
+\end{itemize}
+
+\subsection{Variance of a Sum}
+\begin{align*}
+	\text{Var}(aX+bY) = a^2\text{Var}(X)+b^2\text{Var}(Y)+2ab\text{Cov}(X,Y)
+\end{align*}
+
+\subsection{Correlation Coefficient}
+The \textit{correlation coefficient}, denoted by $\rho_{XY}$ or $\rho(X,Y)$ is obtained by normalizing the covariance. We can define the correlation coefficient of two random variables $X$ and $Y$ as the covariance of the standardized versions of $X$ and $Y$,
+\begin{align*}
+	\rho_{XY} &= \text{Cov}(\frac{X-EX}{\sigma_X}, \frac{Y-EY}{\sigma_Y}) \\
+			  &= \text{Cov}(\frac{X}{\sigma_X}, \frac{Y}{\sigma_Y})\quad \text{by the property of Cov}\\
+			  &= \frac{\text{Cov}(X,Y)}{\sigma_X\sigma_Y}
+\end{align*}
+A nice property of the correlation coefficient is that it is always between -1 and 1. This is an immediate result of \textit{Cauchy-Schwarz inequality}. One way to prove that $-1\leq \rho\leq 1$ is to use the following inequality:
+\begin{align*}
+	\alpha\beta\leq \frac{\alpha^2+\beta^2}{2}, \quan \text{for }\alpha,\beta\in \mathbb{R}.
+\end{align*}
+This is because $(\alpha-\beta)^2\geq 0$. The equality holds only when $\alpha=\beta$. From this, we can conclude that for any two random variables $U$ and $V$, which are the standardized versions of $X$ and $Y$, respectively: 
+\begin{align*}
+	E[UV]\leq \frac{EU^2+EV^2}{2}.
+\end{align*}
+By the definition, $\rho_{XY} = \text{Cov}(U,V) = E[UV]$. Note that $EU^2=EV^2=1$ by definition, so we get
+\begin{align*}
+	\rho_{XY} = E[UV]\leq \frac{EU^2+EV^2}{2} = 1,
+\end{align*}
+with equality only if $U=V$. 
+
+
+Note that two independent random variables are always uncorrelated, but the converse is not necessary true. In other words, if $X$ and $Y$ are uncorrelated, then $X$ and $Y$ may or may not be independent.
+
+
+\section{Bivariate Normal Distribution}
+
+\subsection{Mixed Case}
+The mixed joint density may be defined where one or more random variables are continuous and the other random variables are discrete. With one variable of each type
+\begin{align*}
+	f_{XY}(x,y) = f_{X|Y}(x|y)P_Y(Y=y) = P(Y=y|X=x)f_X(x)
+\end{align*} 
+
+
+
+
+
+
+
