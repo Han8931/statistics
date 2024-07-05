@@ -133,7 +133,7 @@ To find the PDF of $Y$, we differentiate $F_Y(y)$ as follows:
 		   &=f_X(g^{-1}(y))\left|\frac{d}{dy}(g^{-1}(y))\right|
 		   % &= \frac{f_X(x_1)}{g'(x_1)} \quad \text{, since } \frac{dx}{dy}=\frac{1}{\frac{dy}{dx}}.
 \end{align*}
-We can repeat the same argument for the case where $g$ is \textbf{strictly decreasing}. In that case, $g'(x_1)$ will be \textbf{negative}, so we need to use $|g′(x_1)|$ . Thus, we can state the following theorem for a \textit{strictly monotonic function}. (A function $g:R\to R$ is called strictly monotonic if it is strictly increasing or strictly decreasing.)
+We can repeat the same argument for the case where $g$ is \textbf{strictly decreasing}. In that case, $g'(x_1)$ will be \textbf{negative}, so we need to use $|g'(x_1)|$ . Thus, we can state the following theorem for a \textit{strictly monotonic function}. (A function $g:R\to R$ is called strictly monotonic if it is strictly increasing or strictly decreasing.)
 
 Actually, we assumed that $g$ was one-to-one out of convenience: the condition that $g$ is one-to-one is not necessary for change of variables to work: Consider a continuous random variable $X$ with domain $R_X$, and let $Y=g(X)$. Suppose that we can partition $R_X$ into a finite number of intervals such that $g(x)$ is strictly monotone and differentiable on each partition. Then the PDF of $Y$ is given by 
 \begin{align*}
@@ -435,7 +435,7 @@ Let $g: \mathbb{R}\to\mathbb{R}$ be a continuous function. We have
 $$\int_{-\infty}^{\infty} g(x) \delta(x-x_0) dx = g(x_0).$$
 
 
-\paragraph{Using the Delta Function in PDFs of Discrete and Mixed RV} Consider a discrete random variable $X$ with range $R_X=\{x_1,\dots,\x_n\}$ and PMF $P_X(x_k)$. Note that the CDF for X can be written as 
+\paragraph{Using the Delta Function in PDFs of Discrete and Mixed RV} Consider a discrete random variable $X$ with range $R_X=\{x_1,\dots,x_n\}$ and PMF $P_X(x_k)$. Note that the CDF for X can be written as 
 $$F_X(x)=\sum_{x_k \in R_X} P_X(x_k)u(x-x_k).$$
 where:
 \begin{itemize}

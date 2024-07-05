@@ -127,12 +127,12 @@ Note that
 \end{align*}
 Since, $E[E[X|Y]]$ is the function of $Y$. It is also called \textit{the law of iterated expectations}.
 \begin{align*}
-	\mathbbm{E}[\mathbbm{E}[X|Y]]&= \mathbbm{E}\Bigg[\sum_{x}x\cdot P(X=x|Y)\Bigg]\\
+	\mathbb{E}[\mathbb{E}[X|Y]]&= \mathbb{E}\Bigg[\sum_{x}x\cdot P(X=x|Y)\Bigg]\\
 	&= \sum_y\Bigg[\sum_{x}x\cdot P(X=x|Y)\Bigg]\cdot P(Y=y)\\
 	&= \sum_y\sum_{x}x\cdot P(X=x,Y)\\
 	&= \sum_x x\sum_{y}\cdot P(X=x,Y)\\
 	&= \sum_x x\cdot P(X=x)\\
-	&= \mathbbm{E}[X]
+	&= \mathbb{E}[X]
 \end{align*}
 \begin{align*}
 E[Y \mid X = x] &= \sum_y y\cdot p_{Y\mid X}(y\mid X = x)\\
@@ -194,7 +194,7 @@ LOTUS for two continuous random variables:
 
 \begin{theorem}{The Method of Transformations}
 	Let $X$ and $Y$ be two jointly continuous random variables. Let $(Z,W) = g(X,Y) = (g_1(X,Y), g_2(X,Y))$, where $g: \mathbb{R}^2\to \mathbb{R}^2$ is a continuous one-to-one (invertible) function with continuous partial derivatives. Let $h=g^{-1}$, \ie $(X,Y) = h(Z,W) = (h_1(Z,W), h_2(Z,W))$. Then $Z$ and $W$ are jointly continuous and their joint PDF, $f_{ZW}(z,w)$ for $(z,w)\in R_{ZW}$ is given by 
-	$$f_{ZW}(z,w) = f_{XY}(h_1(z,w), h_2(z,w))|J|},$$
+	$$f_{ZW}(z,w) = f_{XY}(h_1(z,w), h_2(z,w))|J|,$$
 	where $J$ is the Jacobian of $h$ defined by 
 	\begin{align*}
 		J &= \text{det}\begin{bmatrix}
@@ -312,7 +312,7 @@ The \textit{correlation coefficient}, denoted by $\rho_{XY}$ or $\rho(X,Y)$ is o
 \end{align*}
 A nice property of the correlation coefficient is that it is always between -1 and 1. This is an immediate result of \textit{Cauchy-Schwarz inequality}. One way to prove that $-1\leq \rho\leq 1$ is to use the following inequality:
 \begin{align*}
-	\alpha\beta\leq \frac{\alpha^2+\beta^2}{2}, \quan \text{for }\alpha,\beta\in \mathbb{R}.
+	\alpha\beta\leq \frac{\alpha^2+\beta^2}{2}, \quad \text{for }\alpha,\beta\in \mathbb{R}.
 \end{align*}
 This is because $(\alpha-\beta)^2\geq 0$. The equality holds only when $\alpha=\beta$. From this, we can conclude that for any two random variables $U$ and $V$, which are the standardized versions of $X$ and $Y$, respectively: 
 \begin{align*}

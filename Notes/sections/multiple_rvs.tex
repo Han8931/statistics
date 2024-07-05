@@ -70,9 +70,73 @@ Then ,
 		   &= M_{X_1}(s)M_{X_2}(s)\dots M_{X_n}(s)
 \end{align*}
 
+\section{Characteristic Functions}
 
+There are some random variables for which the moment generating function does not exist on any real interval with positive length. In that case, we can use the characteristic function defined as 
+$$\phi_X(\omega) = E[e^{j\omega X}],$$
+where $j=\sqrt{-1}$ and $\omega$ is a real number. Note that if $X$ is a real-valued random variable, we can write 
+$|e^{j\omega X}| = 1.$
+Therefore, we conclude 
+\begin{align*}
+	|\phi_X(\omega)| &= |E\left[e^{j\omega X}\right]|\\
+					 &\leq |E\left[e^{j\omega X}\right]|\\
+					 &\leq 1
+\end{align*}
+The characteristic function has similar properties to the MGF. If $X_1,\dots,X_n$ are $n$ independent random variables, then 
+$$\phi_{X_1+\dots+X_n}(\omega) = \phi_{X_1}(\omega)\dots \phi_{X_n}(\omega).$$
 
+\section{Random Vectors}
 
+When we have $n$ random variables, we can put them in a vector $\mathbf{X}$:
+\begin{align*}
+	\mathbf{X} = 
+	\begin{bmatrix}
+		X_1\\
+		\vdots\\
+		X_n\\
+	\end{bmatrix}
+\end{align*}
+We call $\mathbf{X}$ a $n$-dimensional random vector. 
 
+For a random vector $\mathbf{X}$, we defined the \textbf{correlation matrix}, $\mathbf{R}_{\mathbf{X}}$, as 
 
+\begin{align*}
+	\mathbf{R}_{\mathbf{X}} = E[\mathbf{X}\mathbf{X}^T] = \begin{bmatrix}
+		X_1^2 & X_1X_2 & \dots & X_1X_n\\
+		\vdots & \ddots & \vdots & \vdots\\
+		X_nX_1 & X_nX_2 & \dots & X_n^2\\
+	\end{bmatrix} = \begin{bmatrix}
+		EX_1^2 & E[X_1X_2] & \dots & E[X_1X_n]\\
+		\vdots & \ddots & \vdots & \vdots\\
+		E[X_nX_1] & E[X_nX_2] & \dots & E[X_n^2]\\
+	\end{bmatrix}
+\end{align*}
+
+The covariance matrix, $\mathbf{C}_{X}$, is defined as 
+\begin{align*}
+	\mathbf{C}_{\mathbf{X}} &= E[(\mathbf{X}-E\mathbf{X})(\mathbf{X}^T-E\mathbf{X})^T]\\ 
+							&= \begin{bmatrix}
+								(X_1-EX_1)^2 & (X_1-EX_1)(X_2-EX_2) & \dots & (X_1-EX_1)(X_n-EX_n)\\
+								\vdots & \ddots & \vdots & \vdots\\
+								(X_n-EX_n)(X_1-EX_1) & (X_n-EX_n)(X_2-EX_2) & \dots & (X_n-EX_n)^2\\
+							\end{bmatrix}\\
+							&= \begin{bmatrix}
+								\text{Var}(X_1)^2 & \text{Cov}(X_1,X_2) & \dots & \text{Cov}(X_1,X_n)\\
+								\vdots & \ddots & \vdots & \vdots\\
+								\text{Cov}(X_n,X_1) & \text{Cov}(X_n,X_2) & \dots & \text{Var}(X_n)\\
+							\end{bmatrix}\\
+\end{align*}
+The covariance matrix is a generalization of the variance of a random variable. 
+
+Let $\mathbf{X}$ be an $n$-dimensional random vector and the random vector $\mathbf{Y}$ be defined as 
+$$\mathbf{Y=AX+b},$$
+where $\mathbf{A}$ is a fixed $m\times n$ matrix and $\mathbf{b}$ is a fixed $m$-dimensional vector. Then,
+$$\mathbf{C_Y = AC_XA^T}.$$
+
+\subsection{Properties of the Covariance Matrix}
+
+The covariance matrix is the generalization of the variance to random vectors. It is an important matrix and is used extensively. Let's take a moment and discuss its properties. Here, we use concepts from linear algebra such as eigenvalues and positive definiteness. First note that, for any random vector $\mathbf{X}$, the covariance matrix $\mathbf{C_X}$ is a \textbf{symmetric matrix}. This is because if $\mathbf{C_X} = [c_{ij}]$, then 
+\begin{align*}
+	c_{ij}=\textrm{Cov}(X_i,X_j)=\textrm{Cov}(X_j,X_i)=c_{ji}.
+\end{align*}
 
