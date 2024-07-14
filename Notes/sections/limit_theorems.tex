@@ -1,0 +1,38 @@
+\chapter{Limit Theorems and Convergence of Random Variables}
+
+\section{Law of Large Numbers}
+\textit{The law of large numbers} has a very central role in probability and statistics. It states that \textbf{if you repeat an experiment independently a large number of times and average the result, what you obtain should be close to the expected value.} There are two main versions of the law of large numbers. They are called the \textit{weak and strong laws of the large numbers}. 
+
+For i.i.d. random variables $X_1,\dots, X_n$, the sample mean, denoted by $\overline{X}$, is defined as
+\begin{align*}
+	\overline{X} = \frac{X_1+\dots +X_n}{n}.
+\end{align*}
+Another common notation for the sample mean is $M_n$. If the $X_i$'s have CDF $F_X(x)$, we might show the sample mean by $M_n(X)$ to indicate distribution of the $X_i$s.
+
+Note that since the $X_i$s are random variables, the sample mean, $\overline{X} = M_n(X)$, is also a random variable. In particular we have
+\begin{align*}
+	E\overline{X} &= \frac{EX_1+\dots+EX_n}{n} \quad \text{by linearity of expectation}\\
+				  &= \frac{nEX}{n} \quad \text{Since they are i.i.d., $EX_i=EX$}\\
+				  &= EX.
+\end{align*}
+Also the variance of $\overline{X}$ is given by
+\begin{align*}
+	\text{Var}(\overline{X}) &= \frac{\text{Var}(X_1+\dots+X_n)}{n^2} \quad \text{Since Var$(aX)$=$a^2$Var$(X)$}\\
+							 &= \frac{\text{Var}(X_1)+\dots+\text{Var}(X_n)}{n^2} \quad \text{Since $X_i$s are independent}\\
+							 &= \frac{n\text{Var}(X)}{n^2}\\
+							 &= \frac{\text{Var}(X)}{n}.
+\end{align*}
+The weak law of large numbers (WLLN) states that for any $\epsilon >0$, i.i.d. random variables $X_1,\dots, X_n$ with a finite expected value $EX_i=\mu<\infty$, 
+\begin{align*}
+	\lim_{n\to\infty}P(|\overline{X}-\mu|\geq \epsilon) = 0.
+\end{align*}
+
+\section{Central Limit Theorems}
+\textit{The central limit theorem} (CLT) is one of the most important results in probability theory. It states that, \textbf{under certain conditions, the sum of a large number of random variables is approximately normal}.
+
+Suppose that $X_1,\dots,X_n$ are i.i.d. random variables with expected values $EX_i=\mu<\infty$ and variance Var$(X_i)=\sigma^2<\infty$. Then as we saw above, the sample mean and variance have $E\overline{X}=\mu$ and Var$(\overline{X})=\frac{\sigma^2}{n}$. Thus, the normalized random variable
+
+\begin{align*}
+	Z_n = \frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}} = \frac{X_1+\dots+X_n-n\mu}{\sqrt{n}\sigma}
+\end{align*}
+has zero mean $EZ_n=0$ and variance Var$(Z_n)=1$. The central limit theorem states that the CDF of $Z_n$ converges to the standard normal CDF.

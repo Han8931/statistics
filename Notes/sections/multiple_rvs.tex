@@ -139,4 +139,148 @@ The covariance matrix is the generalization of the variance to random vectors. I
 \begin{align*}
 	c_{ij}=\textrm{Cov}(X_i,X_j)=\textrm{Cov}(X_j,X_i)=c_{ji}.
 \end{align*}
+Thus, the covariance matrix has all the nice properties of symmetric matrices. In particular, $\mathbf{C_X}$ can be diagonalized and all the eigenvalues of $\mathbf{C_X}$ are real. Here, we assume $\mathbf{X}$ is a real random vector. \ie the $X_i$ can only take real values. A special property of the covariance matrix is that it is positive semi-definite (PSD). A symmetric matrix $\mathbf{M}$ is PSD if  
+$$\mathbf{b^TMb}\geq 0.$$
+To show that $\mathbf{C_X}$ is always PSD, let $\mathbf{b}$ be any fixed vector with $n$ elements. Define the random variable $Y$ as
+$$Y = \mathbf{b^T(X-EX)}.$$
+We have
+\begin{align*}
+	0 &\leq EY^2\\
+	  &= E(YY^T)\\
+	  &= \mathbf{b^T}E[\mathbf{(X-EX)}\mathbf{(X-EX)}^T]\mathbf{b}\\
+	  &= \mathbf{b^T}\mathbf{C_X}\mathbf{b}
+\end{align*}
+Note that the eigenvalues of a PSD matrix are always larger than or equal to zero. If all the eigenvalues are strictly larger than zero, then the matrix is positive definite. From linear algebra, we know that a real symmetric matrix is positive definite if and only if all its eigenvalues are positive. 
 
+\subsection{Functions of Random Vectors: The Method of Transformations}
+A function of a random vector is a random vector. Let $\mathbf{X}$ be an $n$-dimensional random vector with joint PDF $f_{\mathbf{X}}\rvx$ and $G: \mathbb{R}^n\to \mathbb{R}^n$ be a continuous and invertible function with continuous partial derivatives and let $H = G^{-1}$. Suppose that the random vector $\mathbf{Y}$ is given by $\mathbf{Y} = G(\mathbf{X})$ and thus $\mathbf{X} = G^{-1}(\mathbf{Y}) = H(\mathbf{Y})$. That is, 
+\begin{align*}
+	\mathbf{X} = \begin{bmatrix}
+		X_1\\
+		\vdots\\
+		X_n
+		\end{bmatrix} = \begin{bmatrix}
+		H_1(Y_1,\dots, Y_n)\\
+		\vdots\\
+		H_n(Y_1,\dots, Y_n)
+	\end{bmatrix}
+\end{align*}
+Then, the PDF of $\mathbf{Y}$ is $f_{Y_1,\dots,Y_n}(y_1,\dots, y_n)$, is given by
+$$f_{\mathbf{Y}}(\rvy) = f_{\mathbf{X}}(H(\rvy))|J|,$$
+where $|J|$ is the Jacobian of $H$, 
+\begin{align*}
+	J = \text{det}\begin{bmatrix}
+		\frac{\partial H_1}{\partial y_1} & \dots & \frac{\partial H_1}{\partial y_n}\\
+		\vdots & \ddots & \vdots\\
+		\frac{\partial H_n}{\partial y_1} & \dots & \frac{\partial H_n}{\partial y_n}\\
+	\end{bmatrix}
+\end{align*}
+Let $\mathbf{X}$ be an $n$-dimensional random vector. Let $\mathbf{A}$ be a fixed invertible $n\times n$ matrix, and $\mathbf{b}$ be a fixed $n$-dimensional vector. A random vector $\mathbf{Y}$ is given by
+$$\mathbf{Y = AX+b}.$$
+The PDF of $\mathbf{Y}$ can be obtained as follows:
+\begin{align*}
+	\mathbf{X = A^{-1}(Y-b)}.
+\end{align*}
+\begin{align*}
+	J = \text{det}(\mathbf{A}^{-1}) = \frac{1}{\text{det}(\mathbf{A})}.
+\end{align*}
+Thus, 
+\begin{align*}
+	f_{\mathbf{Y}}(\rvy) = \frac{1}{|\text{det}(\mathbf{A})|}f_{\mathbf{X}}(\mathbf{A}^{-1}(\rvy-\rvb))
+\end{align*}
+
+
+\section{Probability Bounds}
+
+\subsection{The Union Bound and Extension}
+The \textbf{union bound} or \textbf{Boole's inequality} is applicable when you need to show that the probability of union of some events is less than some value. For any two events $A$ and $B$ we have
+\begin{align*}
+	P(A\cup B) &= P(A)+P(B) - P(A\cap B)\\ 
+			   &\leq P(A)+P(B)
+\end{align*}
+In general, for any events, $A_1,\dots,A_n$, we have
+\begin{align*}
+	P\left(\bigcup_{i=1}^nA_i\right) \leq \sum_{i=1}^{n} P(A_i).
+\end{align*}
+
+\subsection{Markov Inequality}
+Let $X$ be any positive continuous random variable, we can write
+\begin{align*}
+	EX &= \int_{-\infty}^{\infty} x f_X(x)dx\\ 
+	   &= \int_{0}^{\infty} x f_X(x)dx \quad \text{since $X$ is positive-valued}\\
+	   &\geq \int_{a}^{\infty} x f_X(x)dx\\
+	   &\geq \int_{a}^{\infty} a f_X(x)dx\\
+	   &= a\int_{a}^{\infty} f_X(x)dx\\
+	   &= a P(X\geq a).
+\end{align*}
+Thus, we conclude
+\begin{align*}
+	P(X\geq a) \leq \frac{EX}{a}, \quad \text{for any }a>0.
+\end{align*}
+We can prove the above inequality for discrete or mixed random variables similarly (using the generalized PDF), so we have the following result, called \textit{Markov's inequality}.
+
+If $X$ is any non-negative random variable, then 
+\begin{align*}
+	P(X\geq a) \leq \frac{EX}{a}, \quad \text{for any }a>0.
+\end{align*}
+
+\subsection{Chebyshev's Inequality}
+Let $X$ be any random variable. If you define $Y = (X-EX)^2$, then $Y$ is a non-negative random variable, so we can apply Markov's inequality to $Y$. In particular, for any positive real number $b$, we have
+\begin{align*}
+	P(X\geq b^2) \leq \frac{EX}{b^2}.
+\end{align*}
+Note that 
+\begin{align*}
+	&EY = E(X-EX)^2 = \text{Var}(X),\\
+	&P(Y\geq b^2) = P\left((X-EX)^2\geq b^2\right) = P(|X-EX|\geq b).
+\end{align*}
+Thus, we get
+\begin{align*}
+	P(|X-EX|\geq b) \leq \frac{\text{Var}(X)}{b^2}.
+\end{align*}
+
+\subsection{Chernoff Bounds}
+If $X$ is a random variable, then for any $a\in \mathbb{R},$ we can write
+\begin{align*}
+	P(X\geq a) &= P(e^{sX}\geq e^{sa}), \quad \text{for } s>0,\\
+	P(X\leq a) &= P(e^{sX}\geq e^{sa}), \quad \text{for } s<0.
+\end{align*}
+Note that $e^{sX}$ is always a positive random variable for all $s\in \mathbb{R}$. Thus, we can apply Markov's inequality. For $s>0$, we can write
+\begin{align*}
+	P(X\geq a) &= P(e^{sX}\geq e^{sa})\\
+			   &\leq \frac{E[e^{sX}]}{e^{sa}}.
+\end{align*}
+Similarly, for $s<0$, we can write
+\begin{align*}
+	P(X\leq a) &= P(e^{sX}\geq e^{sa})\\
+			   &\leq \frac{E[e^{sX}]}{e^{sa}}.
+\end{align*}
+Also note that $E[e^{sX}]$ is the moment generating function, $M_X(s)$. Thus, we conclude 
+\begin{align*}
+	P(X\geq a) \leq e^{-sa}M_X(s), \quad \text{for all } s>0,\\
+	P(X\leq a) \leq e^{-sa}M_X(s), \quad \text{for all } s<0.
+\end{align*}
+Since Chernoff bounds are valid for all values of $s>0$ and $s<0$, we can choose $s$ in a way to obtain the best bound, that is 
+\begin{align*}
+	P(X\geq a) \leq \min_{s>0} e^{-sa}M_X(s)\\
+	P(X\leq a) \leq \min_{s<0} e^{-sa}M_X(s)
+\end{align*}
+
+\paragraph{Comparison between Markov, Chebyshev, and Chernoff Bounds:} For a random varible $X\sim \text{Binom}(n,p)$, upper bounds of $P(X\geq \a n)$ of each bound when $p=\frac{1}{4}$ and $\alpha=\frac{3}{4}$ is given by 
+\begin{align*}
+	P(X\geq \frac{3n}{4})&\leq \frac{2}{3}, \quad\text{Markov}\\
+	P(X\geq \frac{3n}{4})&\leq \frac{4}{n}, \quad\text{Chebyshev}\\
+	P(X\geq \frac{3n}{4})&\leq \frac{16}{27}^{\frac{n}{4}}, \quad\text{Chernoff}.
+\end{align*}
+The bound given by Markov is the weakest one. It is constant and does not change as $n$ increases. The bound given by Chebyshev's inequality is stronger than the one given by Markov's inequality. The strongest bound is the Chernoff bound since it goes to zero exponentially.
+
+
+\subsection{Cauchy-Schwarz Inequality}
+
+For any two random variables $X$ and $Y$, we have
+\begin{align*}
+	|EXY|\leq \sqrt{E[X^2]E[Y^2]},
+\end{align*}
+where equality holds if and only if $X=\alpha Y$, for some constant $\alpha\in \mathbb{R}$.
+
+\subsection{Jensen's Inequality}

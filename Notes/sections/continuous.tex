@@ -195,6 +195,22 @@ Note that the absolute is determined by the function $h$. This is the so-called 
 	\end{array} \right.
 \end{equation*}
 
+\begin{align*}
+	P(c\leq x \leq d) = \int_c^d f(x)dx = \int_c^d \frac{1}{b-a}dx = \frac{d-c}{b-a}
+\end{align*}
+
+The expected value of a uniform distribution is
+\begin{align*}
+	EX = \int_c^d xf(x)dx = \int_c^d \frac{x}{b-a}dx = \frac{b-a}{2}
+\end{align*}
+
+The variance of a uniform distribution is given by
+\begin{align*}
+	\text{Var}(X) &= EX^2-E^2X \\
+				  &= \int_c^d \frac{x^2}{b-a} - \left(\frac{b-a}{2}\right)^2dx\\
+				  &= \frac{(b-a)^2}{12}
+\end{align*}
+
 \subsection{Exponential Distribution}
 
 Check more in \href{https://www.probabilitycourse.com/chapter4/4_2_2_exponential.php}{Exponential Dist.}
