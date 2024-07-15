@@ -35,4 +35,24 @@ Suppose that $X_1,\dots,X_n$ are i.i.d. random variables with expected values $E
 \begin{align*}
 	Z_n = \frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}} = \frac{X_1+\dots+X_n-n\mu}{\sqrt{n}\sigma}
 \end{align*}
-has zero mean $EZ_n=0$ and variance Var$(Z_n)=1$. The central limit theorem states that the CDF of $Z_n$ converges to the standard normal CDF.
+has zero mean $EZ_n=0$ and variance Var$(Z_n)=1$. The central limit theorem states that the CDF of $Z_n$ converges to the standard normal CDF as $n$ goes to infinity, that is
+\begin{align*}
+	\lim_{n\to \infty} P(Z\leq x)\Phi(x), \quad \text{for all }x\in \mathbb{R},
+\end{align*}
+where $\Phi(x)$ is the standard normal CDF.
+
+In sum CLT states that the CDF of $Z_n$ is converging to the CDF of $\mathcal{N}(0,1)$.
+
+The importance of the central limit theorem stems from the fact that, in many real applications, a certain random variable of interest is a sum of a large number of independent random variables. In these situations, we are often able to use the CLT to justify using the normal distribution. Examples of such random variables are found in almost every discipline. Here are a few:
+\begin{itemize}
+	\item Laboratory measurement errors are usually modeled by normal random variables.
+	\item In communication and signal processing, Gaussian noise is the most frequently used model for noise.
+	\item In finance, the percentage changes in the prices of some assets are sometimes modeled by normal random variables.
+	\item When we do random sampling from a population to obtain statistical knowledge about the population, we often model the resulting quantity as a normal random variable.
+\end{itemize}
+
+
+
+
+
+
