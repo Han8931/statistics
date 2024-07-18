@@ -51,8 +51,51 @@ The importance of the central limit theorem stems from the fact that, in many re
 	\item When we do random sampling from a population to obtain statistical knowledge about the population, we often model the resulting quantity as a normal random variable.
 \end{itemize}
 
+\section{Convergence of Random Variables}
 
+We would like to see if a sequence of a random variables $X_1, X_2 \dots $ converges to a random variable $X$. That is, we would like to see if $X_n$ gets closer and closer to $X$ as $n$ increases.
 
+In fact, we have already seen the concept of convergence when we discussed limit theorems (the weak law of large numbers (WLLN) and the central limit theorem (CLT)). The WLLN states that the average of a large number of i.i.d. random variables converges in probability to the expected value. The CLT states that the normalized average of a sequence of i.i.d. random variables converges in distribution to a standard normal distribution. 
 
+\subsection{Convergence of a Sequence of Numbers}
 
+Let's say we have a sequence of a real numbers $a_1, a_2,\dots $, which is defined as $a_n=\frac{n}{n+1}$. Then, we can ask whether the sequence converges. This sequence converges to 1. We say that a sequence converges to a limit $L$ if $a_n$ approaches to $L$ as $n$ goes to infinity. That is, for any $\epsilon>0$, there exists an $N\in \mathbb{N}$ such that
+\begin{align*}
+	\left|a_n-L\right|<\epsilon, \quad \text{for all }n>N.
+\end{align*}
 
+\subsection{Sequence of Random Variables}
+In any probability model, we have a sample space $S = \{s_1,\dots,s_k\}$ and a probability measure $P$. Then, a random variable $X$ is a mapping that assigns a real number to any of the possible outcomes $s_i$, $i=1,2,\dots,k$. Thus, we may write 
+\begin{align*}
+	X(s_i) = x_i, \quad \text{for }i=1,2,\dots, k.
+\end{align*}
+% When we have a sequence of random variables, $X_1, X_2, \dots, $, it is also useful to remember that we have an underlying sample space $S$. 
+
+\subsection{Different Types of Convergence for Sequences of Random Variables}
+
+Consider a sequence of random variables $X_1, X_2, \dots, $. This sequence might converge to a random variable $X$. There are four types of convergence that we are going to discuss:
+\begin{itemize}
+	\item Convergence in distribution
+	\item Convergence in probability
+	\item Convergence in mean
+	\item Almost sure convergence
+\end{itemize}
+Some of these convergence types are ``stronger'' than others and some are ``weaker.'' By this, we mean the following: If Type A convergence is stronger than Type B convergence, it means that Type A convergence implies Type B convergence. 
+
+\paragraph{Convergence in Distribution} Convergence in distribution is the weakest type of convergence in some sense. All it says is that the CDF of $X_n$'s converges to the CDF of $X$ as $n$ goes to infinity. To say that $X_n$ converges in distribution to $X$, we write
+\begin{align*}
+	X_n \, \xrightarrow{d}\, X .
+\end{align*}
+
+\paragraph{Convergence in Probability} Convergence in probability is stronger than convergence in distribution. In particular, for a sequence $X_1,X_2,\dots$ to converge to a random variable $X$, we must have that $P(|X_n-X|\geq \epsilon)$ goes to 0 as $n\to \infty$, for any $\epsilon>0$.
+\begin{align*}
+	X_n \, \xrightarrow{p}\, X .
+\end{align*}
+
+\paragraph{Convergence in Mean} One way of interpreting the convergence of a sequence $X_n$ to $X$ is to say that the ``distance'' between $X$ and $X_n$ is getting smaller and smaller. For instance, if we define the distance between $X_n$ and $X$ as $P(|X_n-X|\geq \epsilon)$, we have convergence in probability. One way to define the distance between $X_n$ and $X$ is 
+\begin{align*}
+	E(|X_n-X|^r),
+\end{align*}
+where $r\geq 1$ is a fixed number. This refers to convergence in mean. The most common choice for $r$ is 2, in which case it is called the \textit{mean square convergence}.  
+
+\paragraph{Almost Sure Convergence}
