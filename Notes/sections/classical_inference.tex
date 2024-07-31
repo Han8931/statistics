@@ -26,8 +26,198 @@ There are infinitely many possible estimators for $\theta$, so how can we make s
 \subsection{Evaluating Estimators}
 We define three main desirable properties for point estimators. The first one is related to \textbf{the estimator's bias}. The bias of an estimator $\hat{\theta}$ tells us on average how far $\hat{\theta}$ is from the real value of $\theta$.
 
-Let $\hat{\theta} = h(X_1,\dots, X_n)$ be a point estimator for $\theta$. The bias of point estimator $\hat{\theta}$ is defined by 
+Let $\hat{\theta} = h(X_1,\dots, X_n)$ be a point estimator for $\theta$ (\eg population mean). The bias of point estimator $\hat{\theta}$ is defined by 
 \begin{align*}
 	B(\hat{\theta}) = E[\hat{\theta}]-\theta.
 \end{align*}
-In general, we would like to have a bias that is close to $0$, indicating that on average, $\hat{\theta}$ is close to $\theta$. It is worth noting that $B(\hat{\theta})$ might depend on the actual value of $\theta$. In other words, you might have an estimator for which $B(\hat{\theta})$ is small for some values of $\theta$ and large for some other values of $\theta$. A desirable scenario is when $B(\hat{\theta})=0$, i.e, $E[\hat{\theta}]=\theta$, for all values of $\theta$. In this case, we say that $\hat{\theta}$ is an unbiased estimator of $\theta$.
+In general, we would like to have a bias that is close to $0$, indicating that on average, $\hat{\theta}$ is close to $\theta$. It is worth noting that $B(\hat{\theta})$ might depend on the actual value of $\theta$. In other words, you might have an estimator for which $B(\hat{\theta})$ is small for some values of $\theta$ and large for some other values of $\theta$. A desirable scenario is when $B(\hat{\theta})=0$, i.e, $E[\hat{\theta}]=\theta$, for all values of $\theta$. In this case, we say that $\hat{\theta}$ is an \textit{unbiased estimator} of $\theta$.
+
+Let $\hat{\theta} = h(X_1,\dots, X_n)$ be a point estimator for $\theta$.We say that $\hat{\theta}$ is an unbiased estimator of $\theta$ if 
+\begin{align*}
+	B(\hat{\theta}) = 0, \, \text{for all possible values of } \theta.
+\end{align*}
+
+Note that if an estimator is unbiased, it does not necessarily means a good estimator. 
+
+% \begin{itemize}
+% 	\item Trade-off Between Bias and Variance: Unbiased estimators can sometimes have high variance, which can lead to estimates that are far from the true value in individual samples. In many practical situations, a small bias might be acceptable if it results in a significant reduction in variance.
+% 	\item Mean Squared Error (MSE): Practitioners often prefer to minimize the mean squared error (MSE), which is the sum of the variance and the square of the bias. A biased estimator with lower MSE might be preferred over an unbiased estimator with higher MSE.
+% 	\item Performance in Small Samples: In finite samples, especially small ones, unbiased estimators may not perform well. Biased estimators might provide more reliable or stable estimates in these cases.
+% 	\item Practicality: Some unbiased estimators may be computationally complex or impractical to use in certain situations, whereas biased estimators might be simpler and more feasible.
+% 	\item Loss Function: The choice of estimator can depend on the loss function being used. In some cases, the cost of overestimating might be different from the cost of underestimating, leading to a preference for a biased estimator that minimizes expected loss.
+% 	\item Specific Applications: In some applications, the goal might not be to estimate the parameter itself, but rather to optimize some other performance metric. For example, in machine learning, regularization techniques introduce bias to prevent overfitting and improve model generalization.
+% 	\item Shrinkage Estimators: Techniques like ridge regression and Lasso in the context of linear regression introduce bias to reduce variance, often leading to better predictive performance.
+% 	\item Bayesian Estimators: Bayesian methods often yield biased estimators by incorporating prior information, but this bias can lead to improved overall performance by incorporating additional information beyond the sample data.
+% \end{itemize}
+
+Thus, we use another measure called \textit{the mean squared error} which is given by 
+\begin{align*}
+	E[(\hat{\theta}-\theta)^2].
+\end{align*}
+
+\paragraph{Example:} Let $X_1,\dots,X_n$ be a random sample from a distribution with $EX_i=\theta$, and variance Var$(X_i)=\sigma^2$. Consider the following two estimators:
+\begin{itemize}
+	\item $\hat{\theta}_1 = X_1$
+	\item $\hat{\theta}_2 = \overline{X_1} = \frac{X_1+\dots+X_n}{n}$
+\end{itemize}
+Find MSE of them and show that for $n>1$.
+\begin{enumerate}
+	\item 
+		\begin{align*}
+			MSE(\hat{\theta}_1) &= E[(\hat{\theta}_1-\theta)^2]\\
+								&= E[(X_1-EX_1)^2]\\
+								&= \text{Var}(X_1)\\
+								&= \sigma^2
+		\end{align*}
+	\item 
+		\begin{align*}
+			MSE(\hat{\theta}_2) &= E[(\hat{\theta}_2-\theta)^2]\\
+								&= E[(\overline{X}-\theta)^2]\\
+								&= \text{Var}(\overline{X}-\theta)+\(E[\overline{X}-\theta)^2]\)^2\\
+								&\vdots\\
+								&= \sigma^2/n
+		\end{align*}
+\end{enumerate}
+We leverage the equality from $EY^2 = \text{Var}(Y)+(EY)^2$, where $Y = \overline{X}-\theta$. Also, $\text{Var}(\overline{X}-\theta) = \text{Var}(\overline{X})$, since $\theta$ is a constant. Finally, $E[\overline{X}-\theta)^2]=0$. Thus, we get the final result. 
+
+From the above example, we conclude that the both estimators are unbiased estimators of the mean, but the second one is better, since it has a smaller MSE. We can rewrite the second estimator as follows:
+\begin{align*}
+	MSE(\hat{\theta}) &= E[(\hat{\theta}-\theta)^2]\\
+					  &= \textrm{Var}(\hat{\theta}-\theta)+(E[\hat{\theta}-\theta])^2\\
+					  &= \underbrace{\textrm{Var}(\hat{\theta})}_{\textrm{Variance}}+\underbrace{B(\hat{\theta})^2}_{\textrm{Bias}}
+\end{align*}
+The last property that we discuss for point estimators is \textit{consistency}. Loosely speaking, we say that an estimator is consistent if as the sample size $n$ gets larger, $\hat{\theta}$ converges to the real value of $\theta$. More precisely, we have the following definition:
+
+Let $\hat{\theta} = h(X_1,\dots, X_n)$ be a point estimator for $\theta$. We say $\hat{\theta}_n$ is a \textit{consistent estimator} of $\theta$ if 
+\begin{align*}
+	\lim_{n\to \infty} P(|\hat{\theta}-\theta|\geq \epsilon) =0, \quad \text{for all }\epsilon>0. 
+\end{align*}
+
+
+\paragraph{Example:} Let $X_1,\dots,X_n$ be a random sample  with $EX_i=\theta$, and variance Var$(X_i)=\sigma^2$. Show that $\hat{\theta}_n=\overline{X}$ is a consistent estimator of $\theta$:
+By the weak law of large numbers, we can apply Chebyshev's inequality to write
+
+\begin{align*}
+	P(|\overline{X}-\theta|\geq \epsilon) &\leq \frac{\text{Var}(\overline{X})}{\epsilon^2}\\
+										  &= \frac{\sigma^2}{n\epsilon^2}
+\end{align*}
+This goes to zero as $n\to \infty$. We already found that MSE goes to zero as $n\to \infty$. Therefore, it is a consistent estimator.
+
+\subsection{Point Estimators for Mean and Variance}
+The sample mean is an unbiased estimator of the mean.
+$$\mathbb{E}[\bar{X}] = \frac{1}{n}\sum_{i=1}^{n} \mathbb{E}[X_i] = \mathbb{E}[X]$$
+
+Suppose that we would like to estimate the variance of a distribution $\sigma^2$. Assuming $0<\sigma^2<\infty$, by definition 
+\begin{align*}
+	\sigma^2 = E[(X-\mu)^2].
+\end{align*}
+Thus, the variance itself is the mean of the random variable $Y = (X-\mu)^2$. This suggests the following estimator for the variance
+\begin{align*}
+	\hat{\sigma}^2 = \frac{1}{n}\sum_{k=1}^n(X_k-\mu)^2.
+\end{align*}
+By the linearity of expectation, $\hat{\sigma}^2$ is an unbiased estimator of $\sigma^2$. Also, by the weak law of large numbers, it is also a consistent estimator of $\sigma^2$. However, we often do not know about the true value of $\mu$. Thus, we may replace $\mu$ by our estimate of the $\mu$, the sample mean, to obtain the following estimator for $\sigma^2$.
+\begin{align*}
+	\overline{S}^2 = \frac{1}{n}\sum_{k=1}^n(X_k-\overline{X})^2.
+\end{align*}
+To rearrange the above equation, we need some tricks. Suppose $X_1, \dots,X_n$ are i.i.d. random variables with expectation $\mu$ and variance $\sigma^2$
+\begin{itemize}
+    \item $\bar{X} = \frac{1}{n} \sum_{i=1}^{n} X_i$
+    \item $S^2 = \frac{1}{n} \sum_{i=1}^{n} (X_i-\bar{X})^2$
+\end{itemize}
+Then $S^2$ is a biased estimator of $\sigma^2$, because
+\begin{align*}
+    \mathbb{E}[S^2] & = \mathbb{E}\Bigg[\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})^2\Bigg] = \mathbb{E}\Bigg[\frac{1}{n}\sum_{i=1}^{n}\Big((X_i-\mu)-(\bar{X}-\mu)\Big)^2\Bigg]\\
+    & = \mathbb{E}\Bigg[\frac{1}{n}\sum_{i=1}^{n}\Big((X_i-\mu)^2 - 2(X_i-\mu)(\bar{X}-\mu)+(\bar{X}-\mu)^2\Big)\Bigg]\\
+    & = \mathbb{E}\Bigg[\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2 - \frac{2}{n}(\bar{X}-\mu)\sum_{i=1}^{n}(X_i-\mu)+\frac{1}{n}(\bar{X}-\mu)^2\sum_{i=1}^{n}1\Bigg]\\
+    & = \mathbb{E}\Bigg[\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2 - \frac{2}{n}(\bar{X}-\mu)\sum_{i=1}^{n}(X_i-\mu)+(\bar{X}-\mu)^2\Bigg]
+\end{align*}
+To continue, we note that by subtracting $\mu$ from both sides of $\bar{X} = \frac{1}{n}\sum_{i=1}^{n}X_i$, we get
+$$\bar{X}-\mu = \frac{1}{n}\sum_{i=1}^{n}X_i -\mu = \frac{1}{n}\sum_{i=1}^{n}X_i - \frac{1}{n}\sum_{i=1}^{n}\mu = \frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)$$
+Then, the previous equation becomes:
+\begin{align*}
+    \mathbb{E}[S^2] & = \mathbb{E}\Bigg[\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2 - \frac{2}{n}(\bar{X}-\mu)\sum_{i=1}^{n}(X_i-\mu)+(\bar{X}-\mu)^2\Bigg]\\
+    & = \mathbb{E}\Bigg[\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2 - \frac{2}{n}(\bar{X}-\mu)\cdot n \cdot (\bar{X}-\mu) +(\bar{X}-\mu)^2\Bigg]\\
+    & = \mathbb{E}\Bigg[\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2 - 2(\bar{X}-\mu)^2 +(\bar{X}-\mu)^2\Bigg]\\
+    & = \mathbb{E}\Bigg[\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2 - (\bar{X}-\mu)^2 \Bigg]\\
+    & = \mathbb{E}\Bigg[\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2\Bigg] - \mathbb{E}\Big[(\bar{X}-\mu)^2\Big] \\
+    & = \frac{1}{n}\mathbb{E}[n\cdot (X_i-\mu)^2] - \mathbb{E}\Big[(\bar{X}-\mu)^2\Big] = \sigma^2 - Var[\bar{X}]\\ 
+    & = \sigma^2 - Var\Bigg[\frac{1}{n}\sum_{i=1}^{n}X_i\Bigg]\\
+    & = \sigma^2 - \frac{1}{n^2}\sum_{i=1}^{n}Var(X_i)\\
+    & = \sigma^2 - \frac{1}{n^2}n \sigma^2\\
+    & = \Big(1-\frac{1}{n}\Big)\sigma^2<\sigma^2
+\end{align*}
+In other words, the expected value of the uncorrected sample variance does not equal the population variance $\sigma^2$, unless multiplied by a normalization factor. The sample mean, on the other hand, is an unbiased estimator of the population mean $\mu$.
+
+Note that the unbiased sample variance $S^2$ can be defined as 
+$$S^2 = \frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar{X})^2$$
+We can obtain an unbiased estimator of the population variance by
+\begin{align*}
+    \mathbb{E}[S^2] & = \mathbb{E}\Bigg[\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar{X})^2\Bigg]\\   
+    & = \frac{n}{n-1}\mathbb{E}\Bigg[\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})^2\Bigg]\\
+    & = \frac{n}{n-1}\Bigg(1-\frac{1}{n}\Bigg)\sigma^2 = \sigma^2
+\end{align*}
+
+\section{Maximum Likelihood Estimation}
+So far, we have discussed estimating the mean and variance of a distribution. Our methods have been somewhat ad-hoc. More specifically, it is not clear how we can estimate other parameters. We now would like to talk about a systematic way of parameter estimation. Specifically, we would like to introduce an estimation method, called maximum likelihood estimation (MLE). To give you the idea behind MLE let us look at an example.
+
+\subsection{Asymptotic Properties of MLEs}
+Let $X_1,\dots, X_n$ be a random sample from a distribution with a parameter $\theta$ Let $\hat{\theta}_{ML}$ denote the MLE of $\theta$. Then, under some mild regularity conditions, 
+\begin{itemize}
+	\item $\hat{\theta}_{ML}$ is asymptotically consistent, \ie, 
+		\begin{align*}
+			\lim_{n\to \infty} P(|\hat{\theta}_{ML}-\theta|>\epsilon) = 0
+		\end{align*}
+	\item $\hat{\theta}_{ML}$ is asymptotically unbiased, \ie., 
+		\begin{align*}
+			\lim_{n\to \infty} E[ \hat{\theta}_{ML}-\theta ]>\epsilon =\theta 
+		\end{align*}
+	\item As $n$ becomes large, $\hat{\theta}_{ML}$ is approximately a normal random variable. More precisely, the random variable 
+		\begin{align*}
+			\frac{\hat{\theta}_{ML}-\theta}{\sqrt{\text{Var}(\hat{\theta}_{ML})}}
+		\end{align*}
+		converges to $\mathcal{N}(0,1)$.
+\end{itemize}
+
+\section{Interval Estimation (Confidence Intervals)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% By rearranging it, we can show that 
+% \begin{align*}
+% 	\overline{S}^2 = \frac{1}{n}\left(\sum_{k=1}^nX_k^2-n\overline{X}^2\right).
+% \end{align*}
+
+% \paragraph{Example:} Let $X_1,\dots,X_n$ be a random sample with $EX_i=\mu$, and variance Var$(X_i)=\sigma^2$. Suppose that we use the above property to estimate $\sigma^2$. Find the bias of this estimator:
+% \begin{align*}
+% 	B(\overline{S}^2) = E[\overline{S}^2] - \sigma^2.
+% \end{align*}
+
+% First note that 
+% \begin{align*}
+% 	E{\overline{X}}^2 &=\left(E\overline{X}\right)^2+\text{Var}(\overline{X})\\
+% 					  &=\mu^2+\frac{\sigma^2}{n}. \quad \text{sample variance by law of large numbers}
+% \end{align*}
+% Thus, 
+
+% \begin{align*}
+% 	E[\overline{S}^2] &= \frac{1}{n}\left(\sum_{k=1}^nEX_k^2-nE\overline{X}^2\right)\\
+% 					  &= \frac{1}{n}\left(n(\mu^2+\sigma^2) - n\left(\mu^2+\frac{\sigma^2}{n}\right)\right)\\
+% 					  &= \frac{n-1}{n}\sigma^2.
+% \end{align*}
+
+
+
