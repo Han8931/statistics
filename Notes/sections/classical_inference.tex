@@ -1,6 +1,16 @@
 \chapter{Statistical Inference: Classical Methods}
 
-Statistical inference is a collection of methods that deal with drawing conclusions from data that are prone to random variation.
+In real life, we work with data that are affected by randomness, and we need to extract information and draw conclusions from the data. The randomness might come from a variety of sources. 
+
+\textit{Statistical inference} is a collection of methods that deal with drawing conclusions from data that are prone to random variation.
+
+\textbf{Frequentist (classical) Inference}: In this approach, the unknown quantity $\theta$ is assumed to be a \textbf{fixed quantity}. That is, $\theta$ is a deterministic (non-random) quantity that is to be estimated by the observed data. For example, in the polling problem stated above we might consider $\theta$ as the percentage of people who will vote for a certain candidate, call him/her Candidate A. After asking $n$ randomly chosen voters, we might estimate $\theta$ by
+\begin{align*}
+	\theta = \frac{Y}{n},
+\end{align*}
+where $Y$ is the number of people who support for candidate $A$.
+
+\textbf{Bayesian Inference}: In the Bayesian approach the unknown quantity $\theta$ is assumed to be a \textbf{random variable}, and we assume that we have some initial guess about the distribution of $\theta$. After observing the data, we update the distribution of $\theta$ using Bayes' Rule.
 
 \section{Point Estimation}
 Here, we assume that $\theta$ is an unknown parameter to be estimated. For example, $\theta$ might be the expected value of a random variable, $\theta=EX$. The important assumption here is that $\theta$ is a fixed (non-random) quantity. To estimate $\theta$, we need to collect some data. Specifically, we get a random sample $X_1, \dots, X_n$ such that $X_i$'s have the same distribution as $X$. To estimate $\theta$, we define a point estimator $\hat{\theta}$ that is a function of the random sample, i.e.,
