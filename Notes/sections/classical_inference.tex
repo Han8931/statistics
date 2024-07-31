@@ -179,7 +179,55 @@ Let $X_1,\dots, X_n$ be a random sample from a distribution with a parameter $\t
 \end{itemize}
 
 \section{Interval Estimation (Confidence Intervals)}
+Let $X_1,\dots, X_n$ be a random sample from a distribution with a parameter $\theta$ that is to be estimated. Suppose that we have observed $X_1=x_1, X_2=x_2, \dots, X_n=x_n$. So far, we have discussed point estimation for $\theta$. The point estimate $\hat{\theta}$ alone does not give much information about $\theta$. In particular, without additional information, we do not know how close $\hat{\theta}$ is to the real $\theta$. Here, we will introduce the concept of interval estimation. In this approach, instead of giving just one value $\hat{\theta}$ as the estimate for $\theta$, we will produce an interval that is likely to include the true value of $\theta$. Thus, instead of saying 
+$$\hat{\theta} = 34.25,$$
+we might report the interval 
+$$[\hat{\theta}_l, \hat{\theta}_h] = [30, 40],$$
+which we wish to include the real value of $\theta$. We will measure two estimates for $\theta$, a high estimate and a low estimate. There are two important concepts: First, the \textit{length} of the reported interval, $\hat{\theta}_l =- \hat{\theta}_h$. The length of the interval shows the precision with which we can estimate $\theta$. The smaller the interval, the higher the precision with which we can estimate $\theta$. The second important factor is the \textit{confidence level} that shows how confident we are about the interval. The confidence level is the probability that the interval that we construct includes the real value of $\theta$. Therefore, higher confidence level is desirable. 
 
+\subsection{The General Framework of Interval Estimation}
+Let $X_1,\dots, X_n$ be a random sample from a distribution with a parameter $\theta$ that is to be estimated. Our goal is to find two estimator for $\theta$:
+\begin{itemize}
+	\item The low estimator, $\hat{\theta}_l = \hat{\theta}_l(X_1,\dots,X_n)$
+	\item The high estimator, $\hat{\theta}_h = \hat{\theta}_h(X_1,\dots,X_n)$
+\end{itemize}
+The interval estimator is given by the interval $[\hat{\theta}_l, \hat{\theta}_h]$. The estimators are chosen such that the probability of the interval including $\theta$ is larger than $1-\alpha$. Here, $1-\alpha$ is said to be \textit{confidence level}. We would like $\alpha$ to be small so that the confidence level can be higher. Common values for $\alpha$ are 0.1, 0.05, or 0.01 which correspond to confidence level $90\%, 95\%$, and $99\%$, respectively. Thus, when we are asked to find a $95\%$ confidence interval for a parameter $\theta$, we need to find the estimators such that 
+$$P\left(\hat{\theta}_l < \theta \text{ and } \hat{\theta}_h>\theta\right)\geq 0.95.$$
+
+\subsection{Finding Interval Estimators}
+
+
+
+
+% \begin{itemize}
+% 	\item Dataset: $\mathcal{X} = \{X_1, \cdots, X_N\}$, where $X_n\sim f_X(x;\thetha)$ are i.i.d.
+% 	\item We want to construct an \textbf{estimator} $\hat{\Theta}$ of $\theta$ from the dataset, which is also known as \textbf{statistic}.
+% 		\begin{itemize}
+% 			\item An estimator $\hat{\Theta}$ is a function of the samples$X_1, \cdots, X_N$
+% 			\item $\hat{\Theta} = g(X_1, \cdots, X_N)$
+% 			\item $\hat{\Theta}$ is a random variable, which has PDF, CDF and so on, since it is a function of the random samples.
+% 		\end{itemize}
+% 	\item The confidence measures the quality of the estimator when compared to the true parameter $\theta$.
+% \end{itemize}
+
+% \section{Understanding Confidence Interval}
+
+% \begin{itemize}
+% 	\item The confidence interval is a probabilistic statement about $\hat{\Theta}$. Instead of studying $\hat{\Theta}$ as a \textit{point}, we construct an \textit{interval}. 
+% 		$$\mathcal{I} = \bigg[\hat{\Theta}-\epsilon, \hat{\Theta}+\epsilon\bigg],$$
+% 		for some $\epsilon$ to be determined. Note that this interval is a \textit{random interval}. If we have a different realization of $\hat{\Theta}$, we will have a different $\mathcal{I}$. We call $\hat{\Theta}$ the confidence interval for the estimator $\hat{\Theta}$.
+% 	\item Given this random interval, what is the probability of $\mathcal{I}$ includes $\theta$?
+% 		$$\mathbb{P}[\theta\in \mathcal{I}] = \mathbb{P}\bigg[\hat{\Theta}-\epsilon\leq\theta\leq \hat{\Theta}+\epsilon\bigg].$$
+% 	\item In practice, we often set $\mathbb{P}[\theta\in \mathcal{I}]$ to be greater than a certain confidence level, say 95\%, and then we determine $\epsilon$.
+% 	\item Once we have determined $\epsilon$, we can claim that with 95\% probability the interval $\bigg[\hat{\Theta}-\epsilon, \hat{\Theta}+\epsilon\bigg]$ will include the unknown parameter $\theta$.
+% 	\item To make this more general, we define $1-\alpha$ as the \textbf{confidence level} for some parameter $\alpha$.
+% 		$$\mathbb{P}\bigg[\hat{\Theta}-\epsilon\leq\theta\leq \hat{\Theta}+\epsilon\bigg]\geq 1-\alpha$$
+% 	\item For what $\epsilon$ can we cover 95\% of the histogram of $\hat{\Theta}$?
+% 	\item To find the answer, we set up the following probability inequality:
+% 		$$\mathbb{P}\Large\Bigg[\frac{|\hat{\Theta}-\mathbb{E}[\hat{\Theta}]|}{\sqrt{Var[\hat{\Theta}]}}\leq \epsilon\Bigg]\geq 1-\alpha$$
+% 	\item $Z=\frac{|\hat{\Theta}-\mathbb{E}[\hat{\Theta}]|}{\sqrt{Var[\hat{\Theta}]}}$
+
+% \end{itemize}
 
 
 
