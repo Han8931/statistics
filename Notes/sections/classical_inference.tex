@@ -1,0 +1,23 @@
+\chapter{Statistical Inference: Classical Methods}
+
+Statistical inference is a collection of methods that deal with drawing conclusions from data that are prone to random variation.
+
+\section{Point Estimation}
+Here, we assume that $\theta$ is an unknown parameter to be estimated. For example, $\theta$ might be the expected value of a random variable, $\theta=EX$. The important assumption here is that $\theta$ is a fixed (non-random) quantity. To estimate $\theta$, we need to collect some data. Specifically, we get a random sample $X_1, \dots, X_n$ such that $X_i$'s have the same distribution as $X$. To estimate $\theta$, we define a point estimator $\hat{\theta}$ that is a function of the random sample, i.e.,
+\begin{align*}
+	\hat{\theta} = h(X_1,\dots,X_n).
+\end{align*}
+For instances, if $\theta=EX$, we may choose $\hat{\theta}$ to be the sample mean, 
+\begin{align*}
+	\hat{\theta} = \overline{X} = \frac{X_1+\dots+ X_n}{n}.
+\end{align*}
+There are infinitely many possible estimators for $\theta$, so how can we make sure that we have chosen a good estimator? How do we compare different possible estimators? To do this, we provide a list of some desirable properties that we would like our estimators to have. Intuitively, we know that a good estimator should be able to give us values that are ``close'' to the real value of $\theta$. To make this notion more precise we provide some definitions.
+
+\subsection{Evaluating Estimators}
+We define three main desirable properties for point estimators. The first one is related to \textbf{the estimator's bias}. The bias of an estimator $\hat{\theta}$ tells us on average how far $\hat{\theta}$ is from the real value of $\theta$.
+
+Let $\hat{\theta} = h(X_1,\dots, X_n)$ be a point estimator for $\theta$. The bias of point estimator $\hat{\theta}$ is defined by 
+\begin{align*}
+	B(\hat{\theta}) = E[\hat{\theta}]-\theta.
+\end{align*}
+In general, we would like to have a bias that is close to $0$, indicating that on average, $\hat{\theta}$ is close to $\theta$. It is worth noting that $B(\hat{\theta})$ might depend on the actual value of $\theta$. In other words, you might have an estimator for which $B(\hat{\theta})$ is small for some values of $\theta$ and large for some other values of $\theta$. A desirable scenario is when $B(\hat{\theta})=0$, i.e, $E[\hat{\theta}]=\theta$, for all values of $\theta$. In this case, we say that $\hat{\theta}$ is an unbiased estimator of $\theta$.
