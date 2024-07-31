@@ -195,77 +195,43 @@ The interval estimator is given by the interval $[\hat{\theta}_l, \hat{\theta}_h
 $$P\left(\hat{\theta}_l < \theta \text{ and } \hat{\theta}_h>\theta\right)\geq 0.95.$$
 
 \subsection{Finding Interval Estimators}
+Let's review a simple things first. Let $X$ be a continuous random variable with CDF $F_X(x) = P(X\leq x).$ Suppose that we are interested in finding two values $x_h$ and $x_l$ such that
+\begin{align*}
+	P(x_l \leq X\leq x_h) = 1-\alpha.
+\end{align*}
+One way to do this is to choose $x_l$ and $x_h$ such that 
+$$P(X\leq x_l) = \frac{\alpha}{2}, \text{ and } P(X\geq x_h) = \frac{\alpha}{2}.$$
+Equivalently, 
+$$F_X(x_l) = \frac{\alpha}{2}, \text{ and } F_X(x_h) = P(X\leq x_h) = 1-\frac{\alpha}{2}.$$
+We can rewrite these equations by using the inverse function $F_X^{-1}$ as
+$$x_l = F_X^{-1}\left(\frac{\alpha}{2}\right), \text{ and } x_h = F_X^{-1}(x_h)\left(1-\frac{\alpha}{2}\right).$$
+We call the interval $[x_l, x_h]$ a $(1-\alpha)$ interval for $X$. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=1.0]{./images/interval.png}
+	\caption{$(1-\alpha)$ interval for $X$. }
+\end{figure}
+\paragraph{Example: }Let $Z\sim \mathcal{N}(0, 1)$, find $x_l$ and $x_h$ such that
+$$P(x_l\leq Z \leq x_h) = 0.95$$
+Here, $\alpha = 0.05$ and the CDF of $Z$ is $\Phi$ (\ie standard normal distribution). Thus, we can choose
+\begin{itemize}
+	\item $x_l = \Phi^{-1}(0.025) = -1.96$
+	\item $x_h = \Phi^{-1}(1-0.025) = 1.96$
+\end{itemize}
+Thus, we have
+$$P(-1.96\leq Z\leq 1.96) = 0.95.$$
 
+\subsection{Confidence Intervals for Normal Samples}
+We assumed $n$ to be large so that we could use the CLT. An interesting aspect of the confidence intervals that we obtained was that they often did not depend on the details of the distribution from which we obtained the random sample. That is, the confidence intervals only depended on statistics such as $\overline{X}$ and $S^2$. What if $n$ is not large enough? In this case, we cannot use the CLT, so we need to use the probability distribution from which the random sample is obtained. A very important case is when we have a sample $X_1, \dots, X_n$ from a normal distribution. Here, we would like to discuss how to find interval estimators for the mean and the variance of a normal distribution. We first need to introduce two distributions that are related to the normal distribution.
 
-
-
-% \begin{itemize}
-% 	\item Dataset: $\mathcal{X} = \{X_1, \cdots, X_N\}$, where $X_n\sim f_X(x;\thetha)$ are i.i.d.
-% 	\item We want to construct an \textbf{estimator} $\hat{\Theta}$ of $\theta$ from the dataset, which is also known as \textbf{statistic}.
-% 		\begin{itemize}
-% 			\item An estimator $\hat{\Theta}$ is a function of the samples$X_1, \cdots, X_N$
-% 			\item $\hat{\Theta} = g(X_1, \cdots, X_N)$
-% 			\item $\hat{\Theta}$ is a random variable, which has PDF, CDF and so on, since it is a function of the random samples.
-% 		\end{itemize}
-% 	\item The confidence measures the quality of the estimator when compared to the true parameter $\theta$.
-% \end{itemize}
-
-% \section{Understanding Confidence Interval}
-
-% \begin{itemize}
-% 	\item The confidence interval is a probabilistic statement about $\hat{\Theta}$. Instead of studying $\hat{\Theta}$ as a \textit{point}, we construct an \textit{interval}. 
-% 		$$\mathcal{I} = \bigg[\hat{\Theta}-\epsilon, \hat{\Theta}+\epsilon\bigg],$$
-% 		for some $\epsilon$ to be determined. Note that this interval is a \textit{random interval}. If we have a different realization of $\hat{\Theta}$, we will have a different $\mathcal{I}$. We call $\hat{\Theta}$ the confidence interval for the estimator $\hat{\Theta}$.
-% 	\item Given this random interval, what is the probability of $\mathcal{I}$ includes $\theta$?
-% 		$$\mathbb{P}[\theta\in \mathcal{I}] = \mathbb{P}\bigg[\hat{\Theta}-\epsilon\leq\theta\leq \hat{\Theta}+\epsilon\bigg].$$
-% 	\item In practice, we often set $\mathbb{P}[\theta\in \mathcal{I}]$ to be greater than a certain confidence level, say 95\%, and then we determine $\epsilon$.
-% 	\item Once we have determined $\epsilon$, we can claim that with 95\% probability the interval $\bigg[\hat{\Theta}-\epsilon, \hat{\Theta}+\epsilon\bigg]$ will include the unknown parameter $\theta$.
-% 	\item To make this more general, we define $1-\alpha$ as the \textbf{confidence level} for some parameter $\alpha$.
-% 		$$\mathbb{P}\bigg[\hat{\Theta}-\epsilon\leq\theta\leq \hat{\Theta}+\epsilon\bigg]\geq 1-\alpha$$
-% 	\item For what $\epsilon$ can we cover 95\% of the histogram of $\hat{\Theta}$?
-% 	\item To find the answer, we set up the following probability inequality:
-% 		$$\mathbb{P}\Large\Bigg[\frac{|\hat{\Theta}-\mathbb{E}[\hat{\Theta}]|}{\sqrt{Var[\hat{\Theta}]}}\leq \epsilon\Bigg]\geq 1-\alpha$$
-% 	\item $Z=\frac{|\hat{\Theta}-\mathbb{E}[\hat{\Theta}]|}{\sqrt{Var[\hat{\Theta}]}}$
-
-% \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% By rearranging it, we can show that 
-% \begin{align*}
-% 	\overline{S}^2 = \frac{1}{n}\left(\sum_{k=1}^nX_k^2-n\overline{X}^2\right).
-% \end{align*}
-
-% \paragraph{Example:} Let $X_1,\dots,X_n$ be a random sample with $EX_i=\mu$, and variance Var$(X_i)=\sigma^2$. Suppose that we use the above property to estimate $\sigma^2$. Find the bias of this estimator:
-% \begin{align*}
-% 	B(\overline{S}^2) = E[\overline{S}^2] - \sigma^2.
-% \end{align*}
-
-% First note that 
-% \begin{align*}
-% 	E{\overline{X}}^2 &=\left(E\overline{X}\right)^2+\text{Var}(\overline{X})\\
-% 					  &=\mu^2+\frac{\sigma^2}{n}. \quad \text{sample variance by law of large numbers}
-% \end{align*}
-% Thus, 
-
-% \begin{align*}
-% 	E[\overline{S}^2] &= \frac{1}{n}\left(\sum_{k=1}^nEX_k^2-nE\overline{X}^2\right)\\
-% 					  &= \frac{1}{n}\left(n(\mu^2+\sigma^2) - n\left(\mu^2+\frac{\sigma^2}{n}\right)\right)\\
-% 					  &= \frac{n-1}{n}\sigma^2.
-% \end{align*}
-
-
+\paragraph{Chi-Squared Distribution: } Recall that a random variable of a gamma distribution with parameters $\alpha>0$ and $\lambda>0$ is given by
+\begin{align*}
+	f_X(x) = \begin{cases}
+		\frac{\lambda^\alpha x^{\alpha-1} e^{-\lambda x}}{\Gamma(\alpha)}& x>0\\
+		0&\text{otherwise}
+	\end{cases}
+\end{align*}
+We know that if $Z_1,\dots,Z_n$ are independent standard normal random variables, then the random variable
+$X = Z_1+\dots+Z_n$
+is also normal. 
 
