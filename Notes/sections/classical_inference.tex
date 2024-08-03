@@ -163,11 +163,11 @@ So far, we have discussed estimating the mean and variance of a distribution. Ou
 \subsection{Asymptotic Properties of MLEs}
 Let $X_1,\dots, X_n$ be a random sample from a distribution with a parameter $\theta$ Let $\hat{\theta}_{ML}$ denote the MLE of $\theta$. Then, under some mild regularity conditions, 
 \begin{itemize}
-	\item $\hat{\theta}_{ML}$ is asymptotically consistent, \ie, 
+	\item $\hat{\theta}_{ML}$ is asymptotically consistent, \ie 
 		\begin{align*}
 			\lim_{n\to \infty} P(|\hat{\theta}_{ML}-\theta|>\epsilon) = 0
 		\end{align*}
-	\item $\hat{\theta}_{ML}$ is asymptotically unbiased, \ie., 
+	\item $\hat{\theta}_{ML}$ is asymptotically unbiased, \ie
 		\begin{align*}
 			\lim_{n\to \infty} E[ \hat{\theta}_{ML}-\theta ]>\epsilon =\theta 
 		\end{align*}
@@ -206,7 +206,7 @@ $$F_X(x_l) = \frac{\alpha}{2}, \text{ and } F_X(x_h) = P(X\leq x_h) = 1-\frac{\a
 We can rewrite these equations by using the inverse function $F_X^{-1}$ as
 $$x_l = F_X^{-1}\left(\frac{\alpha}{2}\right), \text{ and } x_h = F_X^{-1}(x_h)\left(1-\frac{\alpha}{2}\right).$$
 We call the interval $[x_l, x_h]$ a $(1-\alpha)$ interval for $X$. 
-\begin{figure}[h]
+\begin{figure}[t]
 	\centering
 	\includegraphics[scale=1.0]{./images/interval.png}
 	\caption{$(1-\alpha)$ interval for $X$. }
@@ -224,6 +224,12 @@ $$P(-1.96\leq Z\leq 1.96) = 0.95.$$
 \subsection{Confidence Intervals for Normal Samples}
 We assumed $n$ to be large so that we could use the CLT. An interesting aspect of the confidence intervals that we obtained was that they often did not depend on the details of the distribution from which we obtained the random sample. That is, the confidence intervals only depended on statistics such as $\overline{X}$ and $S^2$. What if $n$ is not large enough? In this case, we cannot use the CLT, so we need to use the probability distribution from which the random sample is obtained. A very important case is when we have a sample $X_1, \dots, X_n$ from a normal distribution. Here, we would like to discuss how to find interval estimators for the mean and the variance of a normal distribution. We first need to introduce two distributions that are related to the normal distribution.
 
+\paragraph{Degree of Freedom}:Degrees of freedom (df) is a concept used in statistical analyses to describe the number of independent values or quantities which can vary in an analysis without breaking any constraints.  Degrees of freedom can be defined as the number of independent pieces of information available to estimate another piece of information. More formally, it's the number of values in a calculation that are free to vary.
+\begin{itemize}
+	\item Single Sample Mean: When estimating the mean of a sample, degrees of freedom refer to the number of observations that can vary independently. If you have \( n \) observations and you know the sample mean, \( n - 1 \) of those observations can vary freely, while the last one is fixed by the constraint that the sum of deviations from the mean must be zero. For instance, a sample of 10 observations, the degrees of freedom when calculating the sample variance is \( n - 1 = 9 \). This is because once you know the first 9 values and the sample mean, the 10th value is determined.
+\end{itemize}
+
+
 \paragraph{Chi-Squared Distribution: } Recall that a random variable of a gamma distribution with parameters $\alpha>0$ and $\lambda>0$ is given by
 \begin{align*}
 	f_X(x) = \begin{cases}
@@ -231,7 +237,286 @@ We assumed $n$ to be large so that we could use the CLT. An interesting aspect o
 		0&\text{otherwise}
 	\end{cases}
 \end{align*}
-We know that if $Z_1,\dots,Z_n$ are independent standard normal random variables, then the random variable
-$X = Z_1+\dots+Z_n$
-is also normal. 
+We know that if $Z_1,\dots,Z_n$ are \textbf{independent standard normal} random variables, then the random variable
+$$X = Z_1+\dots+Z_n$$
+is also normal. More specifically, $X\sim \mathcal{N}(0, n)$. Now if we define a random variable $Y$ as 
+$$Y = Z_1^2+\dots+Z_n^2,$$
+then $Y$ is said to have a \textbf{chi-squared} distribution with $n$ \textbf{degrees of freedom} shown by
+$$Y \sim \chi^2(x).$$
+Note that the shape of the distribution depends on $n$. It can be shown that the random variable $Y$ has, in fact, a gamma distribution with parameters $\alpha = \frac{n}{2}$ and $\lambda = \frac{1}{2},$
+$$Y \sim \text{Gamma}\left(\frac{n}{2}, \frac{1}{2}\right).$$
+The chi-squared distribution has some properties:
+\begin{itemize}
+	\item Mean: $n$
+	\item Variance $2n$
+	\item Shape: For small degrees of freedom, the chi-squared distribution is skewed to the right (long tail at the right). As the degrees of freedom increase, the distribution becomes more symmetric and approaches a normal distribution.
+\end{itemize}
+
+\paragraph{t-Distribution (Student's t-distribution): }  The Student's t-distribution, commonly referred to as the t-distribution, is a continuous probability distribution that is particularly useful in the context of small sample sizes. It is often used in hypothesis testing and constructing confidence intervals for population means when the population standard deviation is unknown.
+
+The t-distribution arises when estimating the mean of a normally distributed population in situations where the sample size is small and the population standard deviation is unknown. Mathematically, if \( X_1, X_2, \ldots, X_n \) are independent, identically distributed random variables from a normal distribution with mean \( \mu \) and standard deviation \( \sigma \), and \( \overline{X} \) is the sample mean and \( S \) is the sample standard deviation, the \textit{t-statistic} is given by:
+
+\[ T = \frac{\overline{X} - \mu}{S/\sqrt{n}} \]
+
+This t-statistic follows a t-distribution with \( n - 1 \) degrees of freedom, where \( n \) is the sample size.
+
+\subsection{Confidence Intervals for the Mean of Normal Random Variables}
+
+We assume that $X_1, \dots, X_n$ are random samples from a normal distribution $\mathcal{N}(\mu, \sigma^2)$ and our goal is to find an interval estimator for $\mu$ We no longer require $n$ to be large. Thus, $n$ could be any positive integer. There are two possible scenarios depending on whether $\sigma^2$ is known or not. If the value of $\sigma^2$ is known, we can easily find a confidence interval for $\mu$. This can be done by using exactly the same method that we used to estimate $\mu$ for a general distribution for the case of large $n$. More specifically, we know that the random variable 
+$$Q = \frac{\overline{X}-\mu}{\sigma/\sqrt{n}}$$
+has $\mathcal{N}(0,1)$ distribution. In particular, $Q$ is a function of the $X_i$'s and $\mu$, and its distribution does not depend on $\mu$. Thus, $Q$ is a pivotal quantity, and we conclude that $\left[\overline{X}- z_{\frac{\alpha}{2}} \frac{\sigma}{\sqrt{n}} , \overline{X}+ z_{\frac{\alpha}{2}} \frac{\sigma}{\sqrt{n}}\right]$ is $(1-\alpha)100\%$ confidence interval for $\mu$.
+
+The second case is where we do not know the variance $\sigma^2$. In this case, we can leverage the $t$-statistic:
+\begin{align*}
+	T = \frac{\overline{X} - \mu}{S/\sqrt{n}},
+\end{align*}
+with $n-1$ degrees of freedom. 
+
+
+\paragraph{Example: }
+\begin{itemize}
+	\item Using the t-Distribution for Confidence Intervals: 
+When we don't know the exact standard deviation of a population and our sample size is small (usually less than 30), we use the t-distribution to calculate our confidence interval. Here’s how you can do it step-by-step:
+\begin{itemize}
+	\item Collect Your Sample Data: Suppose you measured the heights of 20 people in your city.
+	\item Calculate the Sample Mean (\(\overline{x}\)): Add up all the heights and divide by the number of people. Let's say the average height is 170 cm.
+	\item Calculate the Sample Standard Deviation (s): This tells you how spread out the heights are. Let's say it's 10 cm.
+	\item Determine the Sample Size (n): In this case, \( n = 20 \).
+	\item Choose Your Confidence Level: Common choices are 90\%, 95\%, and 99\%. Let’s choose 95\%, meaning we're 95\% sure the true average height falls within our range.
+	\item Find the t-Value: This value comes from a t-distribution table and depends on your chosen confidence level and the degrees of freedom (which is the sample size minus one). For 20 people, degrees of freedom = 20 - 1 = 19. The t-value for 19 degrees of freedom at 95\% confidence is about 2.093.
+	\item Calculate the Margin of Error (ME):
+   \[
+   ME = t \times \frac{s}{\sqrt{n}}
+   \]
+   Plugging in our numbers:
+   \[
+   ME = 2.093 \times \frac{10}{\sqrt{20}} \approx 4.68
+   \]
+	\item Construct the Confidence Interval: Add and subtract the margin of error from the sample mean:
+   \[
+   \text{Confidence Interval} = (\bar{x} - ME, \bar{x} + ME) = (170 - 4.68, 170 + 4.68) = (165.32, 174.68)
+   \]
+So, you can say with 95\% confidence that the average height of people in your city is between 165.32 cm and 174.68 cm.
+\end{itemize}
+\item Using the Chi-Squared Distribution for Confidence Intervals: The chi-squared distribution is used to find confidence intervals for variances (how spread out data is). Imagine you want to know how much people's heights vary in your city.
+	\begin{itemize}
+		\item Collect Your Sample Data: Again, measure the heights of 20 people.
+		\item Calculate the Sample Variance (\(s^2\)): This is the square of the sample standard deviation. If the standard deviation is 10 cm, the variance is \( 10^2 = 100 \) cm\(^2\).
+		\item Determine the Sample Size (n): Still \( n = 20 \).
+		\item Choose Your Confidence Level: Let’s stick with 95%.
+		\item Find the Critical Chi-Squared Values: These values come from a chi-squared distribution table. You need two values: one for the lower end and one for the upper end of the confidence interval.
+			\begin{itemize}
+				\item For 19 degrees of freedom (since \( n - 1 = 19 \)):
+				\item The value for the lower end (0.025 in each tail for 95\%) is about 32.852.
+				\item The value for the upper end (0.975) is about 8.907.
+			\end{itemize}
+		\item Construct the Confidence Interval for the Variance:
+   \[
+   \text{Lower Limit} = \frac{(n-1)s^2}{\chi^2_{\text{upper}}} = \frac{(19 \times 100)}{32.852} \approx 57.79
+   \]
+   \[
+   \text{Upper Limit} = \frac{(n-1)s^2}{\chi^2_{\text{lower}}} = \frac{(19 \times 100)}{8.907} \approx 213.33
+   \]
+
+So, you can say with 95\% confidence that the variance in heights is between 57.79 cm\(^2\) and 213.33 cm\(^2\).
+	\end{itemize}
+	
+
+\end{itemize}
+
+\section{Hypothesis Testing}
+Often, we need to test whether a hypothesis is true or false. For example, a pharmaceutical company might be interested in knowing if a new drug is effective in treating a disease. Here, there are two hypotheses. The first one is that the drug is not effective, while the second hypothesis is that the drug is effective. We call these hypotheses $H_0$ and $H_1$ respectively. 
+
+The hypothesis $H_0$ is called the \textit{null hypothesis} and the hypothesis $H_1$ is called the \textit{alternative hypothesis}. The null hypothesis, $H_0$, is usually referred to as the default hypothesis, \ie the hypothesis that is initially assumed to be true. The alternative hypothesis, $H_1$, is the statement contradictory to $H_0$. Based on the observed data, we need to decide either to accept $H_0$, or to reject it, in which case we say we accept $H_1$. These are problems of hypothesis testing. In this section, we will discuss how to approach such problems from a classical (frequentist) point of view. We will start with an example, and then provide a general framework to approach hypothesis testing problems. When looking at the example, we will introduce some terminology that is commonly used in hypothesis testing. Do not worry much about the terminology when reading this example as we will provide more precise definitions later on. 
+
+\paragraph{Example: } You have a coin and you would like to check whether it is fair or not. More specifically, let $\theta$ be the probability of heads, $\theta=P(H)$. You have two hypotheses: 
+\begin{itemize}
+	\item $H_0$ (null hypothesis): The coin is fair, \ie $\theta = \theta_0 = 1/2$.
+	\item $H_1$ (alternative hypothesis): The coin is not fair, \ie $\theta \neq 1/2$.
+\end{itemize}
+We need to design a test to whether we accept the null hypothesis or not. We first toss the coin 100 times and count the number of heads. Let $X$ be the number of heads that we observe, 
+$$X\sim Bin(100, \theta).$$
+If $H_0$ is true, then $\theta = \theta_0 = 1/2$, so we expect the number of heads to be close to 50. Thus, intuitively we can say that if we observe close to 50 heads, we should accept $H_0$, otherwise we should reject it. More specifically, we suggest the following criteria: if $|X-50|$ is less than or equal to some threshold, we accept $H_0$. On the other hand, if $|X-50|$ is larger than the threshold, we reject $H_0$ and accept $H_1$:  
+\begin{itemize}
+	\item If $|X-50|\leq t$, accept $H_0$.
+	\item If $|X-50|> t$, accept $H_1$.
+\end{itemize}
+How do we determine the threshold $t$? We need to state some requirements for our test. An important factor is \textbf{the probability of error}. One of the sources of the error is from when we wrongly reject $H_0$ when it is true. We call this \textit{type 1 error}. This is a case where the number of observed heads is larger than $t$, \ie  $|X-50|> t$ when $H_0$ is true. 
+$$P(\text{type 1 error}) = P(|X-50|> t | H_0).$$
+We read this as the probability of making type 1 error when $H_0$ is true. Note that this is not a conditional probability, since in classical statistics, we do not treat $H_0$ and $H_1$ as random events.
+
+We can choose $t$ as follows:
+$$P(\text{type 1 error}) \leq \alpha = 0.05.$$
+Here $\alpha$ is called \textit{the level of significance} and we say the test has a \textit{significance level} $\alpha$. By CLT, we can approximate the binomial distribution when $n$ is large. Thus, 
+\begin{align*}
+	Y=\frac{X-n\theta_0}{\sqrt{n\theta_0(1-\theta_0)}}=\frac{X-50}{5}
+\end{align*}
+is approximately a standard normal random variable. To exploit the CLT, we can divide the both sides of the inequality as follows: 
+\begin{align*}
+	P(\text{type 1 error}) &=  P(\left|\frac{X-50}{5}\right|> \frac{t}{5} | H_0)\\
+						   &= P(|Y|> \frac{t}{5} | H_0).
+\end{align*}
+For simplicity, let $c=\frac{t}{5}$, then
+\begin{itemize}
+	\item If $|Y|\leq c$, accept $H_0$.
+	\item If $|Y|> c$, accept $H_1$.
+\end{itemize}
+To decode, what $c$ should be,
+\begin{align*}
+	\alpha &= P(|Y|>c)\\ 
+		   &= 1-P(c\leq |Y|\leq c)\\
+		   &\approx 2(1-\Phi(c)) \\
+	2(1-\Phi(c)) &= 0.05
+\end{align*}
+Thus, we obtain
+\begin{align*}
+	c = \Phi^{-1}(0.975) = 1.96
+\end{align*}
+\begin{itemize}
+	\item If $|Y|\leq 1.96$, accept $H_0$.
+	\item If $|Y|> 1.96$, accept $H_1$.
+\end{itemize}
+The set $A = [-1.96, 1.96]$ is called the \textit{acceptance region}, since it includes the points that result in accepting $H_0$. Similarly, the set $R = (-\infty, -1.96)\cup (1.96, \infty)$ is called the \textit{rejection region}. 
+\begin{figure}[t]
+	\centering
+	\includegraphics[scale=1.0]{./images/acceptance.png}
+\end{figure}
+Since, $Y = \frac{X-50}{5}$, we can say that 
+\begin{itemize}
+	\item If $|X-50|\leq 9.8$, accept $H_0$.
+	\item If $|X-50|> 9.8$, accept $H_1$.
+\end{itemize}
+Equivalently, 
+\begin{itemize}
+	\item $\{41, \dots, 59\}$, accept $H_0$.
+	\item Otherwise, reject $H_0$
+\end{itemize}
+
+Note that the second possible error is that we accept $H_0$ when $H_0$ is false. This is called \textit{type II error}. Since the alternative hypothesis, $H_1$ is typically a composite hypothesis (\ie it can be more than one value. In contrast, simple hypothesis denotes only one element.). Thus, the probability of type II error is commonly a function of $\theta$, which is given by
+\begin{align*}
+	\beta(\theta) = P(\text{accept }H_0)
+\end{align*}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[scale=1.0]{./images/acceptance_errors.png}
+	\caption{Type I and II errors.}
+\end{figure}
+
+\subsection{P-Values}
+The hypothesis test provides only a decision of ``accept'' or ``reject''. However, we could indicate how close the decision was. More specifically, suppose we end up rejecting $H_0$ at at significance level $\alpha=0.05$. Then we can ask: ``How about if we require significance level $\alpha=0.01$?'' Can we still reject $H_0$? More specifically, we can ask the following question:
+$$\textit{What is the lowest significance level $\alpha$ that results in rejecting the null hypothesis?}$$
+To answer the question, we are going to use $p$-value. The $p$-value is the \textit{lowest significance level $\alpha$ that results in rejecting the null hypothesis} (\ie probability of type I error). 
+
+Intuitively, if the $p$-value is small, it means that the observed data (type I error) is very unlikely to have occurred under $H_0$, thus we can be more confident in rejecting the null hypothesis.  
+
+
+\subsection{Likelihood Ratio Tests}
+Let $X_1, \dots , X_n$ be a random sample from a distribution with a parameter $\theta$. Suppose that we have observed $X_1=x_1, \dots, X_n=x_n$. 
+\begin{itemize}
+	\item If the $X_i$'s are discrete, then the likelihood function is defined as
+		$$L(x_1,\dots,x_n;\theta) = P_{X_1,\dots,X_n}(x_1,\dots,x_n;\theta).$$
+	\item If the $X_i$'s are continuous, then the likelihood function is defined as
+		$$L(x_1,\dots,x_n;\theta) = f_{X_1,\dots,X_n}(x_1,\dots,x_n;\theta).$$
+\end{itemize}
+Consider a hypothesis testing problem in which both the null and the alternative hypotheses are simple:
+\begin{itemize}
+	\item $H_0: \theta=\theta_0$
+	\item $H_1: \theta=\theta_1$
+\end{itemize}
+One way to decide a hypothesis is to compare their corresponding likelihood functions by
+\begin{align*}
+	\lambda(x_1,\dots,x_n) = \frac{L(x_1,\dots,x_n;\theta_0)}{L(x_1,\dots,x_n;\theta_1)}.
+\end{align*}
+If $\lambda<c$ then we reject $H_0$ and accept it if $\lambda>c$.
+
+\section{Linear Regression}
+Sometimes we are interested in obtaining a simple model that explains the relationship between two or more variables. For example, suppose that we are interested in studying the relationship between the income of parents and the income of their children in a certain country. In general, many factors can impact the income of a person. Nevertheless, we suspect that children from wealthier families generally tend to become wealthier when they grow up. Here, we can consider two variables: 
+\begin{itemize}
+	\item The family income can be defined as the average income of parents at a certain period.
+	\item The child income can be defined as his/her average income at a certain period (e.g, age).
+\end{itemize}
+ To examine the relationship between the two variables, we collect some data 
+\begin{align*}
+	(x_i,y_i), \quad \text{for } i=1,\dots, n,
+\end{align*}
+where $y_i$ is the average income of the $i$-th child and $x_i$ is the average income of his/her parents. We are often interested in finding a simple model. A linear model is probably the simplest model that we can define, where we write
+$$y_i = \beta_0+\beta_1x_i.$$
+Since, there could be other factors that impact a child's future income, we can express it
+$$y_i = \beta_0+\beta_1x_i+\epsilon_i,$$
+where $\epsilon_i$ is modeled as a random variable. More specifically, if we approximate a child's future income by the linear model, then $\epsilon_i$ indicates the error in our approximation. The goal is to obtain the best values of the parameters (\textit{regression coefficients}).
+\begin{figure}[t]
+	\centering
+	\includegraphics[scale=1.0]{./images/regression_line.png}
+\end{figure}
+Since $\epsilon$ (residual term) is a random variable, $Y$ is also a random variable. The variable $x$ is called the \textit{predictor} or the \textit{explanatory} variable, and the random variable $Y$ is called the \textit{response} variable. 
+
+\subsection{A Simple Linear Regression Model}
+$$Y = \beta_0+\beta_1X+\epsilon,$$
+where $\epsilon$'s as independent and zero-mean normal random variables, 
+\begin{align*}
+	\epsilon_i\sim \mathcal{N}(0, \sigma^2).
+\end{align*}
+The parameters and $\sigma^2$ are considered fixed but unknown. The assumption is that we have data points and our goal is to find the best values for the regression coefficients. 
+
+First, we take expectation from both sides to obtain
+\begin{align*}
+	EY &= \beta_0+\beta_1EX+E[\epsilon]\\
+	   &= \beta_0+\beta_1EX
+\end{align*}
+Thus, 
+\begin{align*}
+	\beta_0 = EY-\beta_1EX
+\end{align*}
+Subsequently, we look at $Cov(X,Y)$,
+\begin{align*}
+	Cov(X,Y) &= Cov(X,\beta_0+\beta_1X+\epsilon)\\
+			 &= \text{Cov}(X, \beta_0) + \text{Cov}(X, \beta_1 X) + \text{Cov}(X, \epsilon)\\
+			 &= \text{Cov}(X, \beta_1 X)\\
+			 &= \beta_1\text{Cov}(X, X) \quad \text{by Scaling property} \\
+			 &= \beta_1\text{Var}(X)\\
+\end{align*}
+Note that the second step uses the linearity of covariance:
+\begin{align*}
+	Cov(X+Y,Z)=Cov(X,Z)+Cov(Y,Z).
+\end{align*}
+Also, the covariance with a constant and any random variable is zero, and the covariance of two independent random variables is zero. 
+
+Therefore, we obtain
+\begin{align*}
+	\beta_1=\frac{\textrm{Cov}(X,Y)}{\textrm{Var}(X)}, \quad \beta_0=EY-\beta_1 EX.
+\end{align*}
+In sum, if we know the above statistics, we can get the best coefficients.
+
+\paragraph{Coefficient of Determination (R-Squared):} Let's look at the linear mode:
+$$Y = \beta_0+\beta_1X+\epsilon.$$
+Note that if we want to estimate $Y$ using the observed $X$, then we can express it
+$$\hat{Y} = \beta_0+\beta_1X.$$
+The error in our estimate is
+$$Y-\hat{Y} = \epsilon.$$
+Note that the randomness in $Y$ comes from two sources: \Ni $X$ and \Nii $\epsilon$. More specifically, if we look at $Var(Y)$, 
+\begin{align*}
+	Var(Y) = \beta^2_1Var(X)+Var(\epsilon),
+\end{align*}
+since $X$ and $\epsilon$ are assumed to be independent. Also, recall that $Var(aX) = a^2Var(X)$. From the above equation we can define
+\begin{align*}
+	\rho^2 = \frac{\beta^2_1 Var(X)}{Var(Y)}
+\end{align*}
+as the portion of variance of $Y$ that is explained by variation in $X$. In other words, we want to measure the impact of the variance $X$. The $R^2$ value also can be defined as follows:
+\begin{align*}
+	R^2 = 1-\frac{Var(\epsilon)}{Var(Y)}
+\end{align*}
+Thus, it always lie between 0 and 1, since $Var(Y)$ is the total variance. Equivalently, we can leverage the fact that $\beta_1 = \frac{\textrm{Cov}(X,Y)}{\textrm{Var}(X)}$. Then, we get
+\begin{align*}
+	\rho^2 = \frac{Cov(X, Y)^2}{Var(X)Var(Y)}
+\end{align*}
+Larger values of $R^2$ generally suggest that our linear model is a good fit for the data.
+
+
+
+
+
+
+
+
 

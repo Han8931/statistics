@@ -1,0 +1,30 @@
+\chapter{Statistical Inference: Bayesian Methods}
+In this chapter, we would like to discuss a different framework for inference, namely the \textit{Bayesian} approach. In the Bayesian framework, we treat the unknown quantity, $\theta$, as a random variable. More specifically, \textit{we assume that we have some initial guess about the distribution of }$\theta$. This distribution is called the \textit{prior} distribution. After observing some data, we update the distribution of $\theta$ (based on the observed data). This step is usually done using Bayes' Rule. That is why this approach is called the Bayesian approach. The details of this approach will be clearer as you go through the chapter. 
+
+\paragraph{Example: }Suppose that you would like to estimate the portion of voters in your town that plan to vote for Party A in an upcoming election. To do so, you take a random sample of size $n$ from the likely voters in the town. Since you have a limited amount of time and resources, your sample is relatively small. Specifically, suppose that $n=20$. After doing your sampling, you find out that 6 people in your sample say they will vote for Party A. 
+
+Let $\theta$ be the true portion of voters in your town who plan to vote for Party A. You might want to estimate $\theta$ as 
+\begin{align*}
+	\theta = \frac{6}{20} = 0.3
+\end{align*}
+In fact, in absence of any other data, that seems to be a reasonable estimate. However, you might feel that $n=20$ is too small. Thus, your guess is that the error in your estimation might be too high. While thinking about this problem, you remember that \textbf{the data from the previous election is available to you}. You look at that data and find out that, in the previous election, 40\% of the people in your town voted for Party A. How can you use this data to possibly improve your estimate of $\theta$? You might argue as follows: Although the portion of votes for Party A changes from one election to another, the change is not usually very drastic. Therefore, given that in the previous election 40\% of the voters voted for Party A, you might want to model the portion of votes for Party A in the next election as a random variable $\theta$ with a probability density function, $f_\theta(\theta)$, that is mostly concentrated around $\theta=0.4$. For example, you might want to choose the density such that 
+\begin{align*}
+	E[\theta] = 0.4.
+\end{align*}
+Therefore, the initial belief or prior distribution is $f_\theta(\theta)$. 
+
+\section{Maximum A Posteriori (MAP) Estimation}
+
+The posterior distribution $f_{X|Y}(x|y)$ (or $P_{X|Y}(x|y)$) contains all the knowledge about the unknown quantity $X$. Therefore, we can use the posterior distribution to find point or interval estimates of $X$. One way to obtain a point estimate is to choose the value of $x$ that maximizes the posterior PDF or PMF. This is called MAP estimation. 
+
+To find the MAP estimate, we need to find the value of $x$ that maximizes
+\begin{align*}
+	f_{X|Y}(x|y) = \frac{f_{Y|X}(y|x)f_X(x)}{f_Y(y)}
+\end{align*}
+Note that $f_Y(y)$ does not depend on the value of $x$. Therefore, we can use the numerator to find the MAP estimate:
+\begin{align*}
+	\max_x f_{Y|X}(y|x)f_X(x).
+\end{align*}
+This makes the problem simple, since it is difficult to compute the denominator, which typically involves computing a law of total probability. 
+
+
