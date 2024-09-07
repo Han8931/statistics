@@ -1,0 +1,171 @@
+\chapter{Random Process}
+% We are often interested in \textbf{multiple observations of random values over a period of time}. For example, suppose that you are observing the stock price of a company over the next few months. In particular, let $S(t)$ be the stock price at time $t\in[0,\infty)$. Here, we assume $t=0$ refers to current time. 
+
+% Note that at any fixed time $t_1\in[0,\infty)$, $S(t_1)$ is a random variable. Based on your knowledge of finance and the historical data, you might be able to provide a PDF for $S(t_1)$. If you choose another time $t_2\in[0,\infty)$, you obtain another random variable $S(t_2)$ that could potentially have a different PDF. When we consider the values of $S(t)$ for $t\in[0,\infty)$ collectively, we say $S(t)$ is a \textit{random process} or a \textit{stochastic process}. We may show this process by 
+% \begin{align*}
+% \left\{S(t), t \in [0,\infty) \right\}.
+% \end{align*}
+% Therefore, a random process is a collection of random variables usually indexed by time (or sometimes by space). 
+
+% There stock price process $S(t)$ is an example of a continuous-time random process. In general, when we have a random process $X(t)$ where $t$ can take real values in an interval on the real line, then $X(t)$ is a continuous-time random process. 
+
+% \paragraph{Example} Let $N(t)$ be the number of customers who have visited a bank from $t=9$ (when the bank opens at 9:00 am) until time $t$, on a given day, for $t\in[9,16]$. Here, we measure $t$ in hours, but $t$ can take any real value between 9 and 16. We assume that $N(9)=0$, and $N(t)\in\{0,1,2,\dots\}$ for all $t\in[9,16]$. Note that for any time $t_1$, the random variable $N(t_1)$ is a discrete random variable. Thus, $N(t)$ is a \textit{discrete-valued random process}. However, since $t$ can take any real value between 9 and 16, $N(t)$ is a \textit{continuous-time random process}.
+
+% On the other hand, you can have a discrete-time random process. A discrete-time random process is a process 
+% \begin{align*}
+% \left\{X(t), t \in J \right\},
+% \end{align*}
+% where $J = \{t_1, t_2, \dots \}$ is a countable set. 
+
+% \subsection{PDFs and CDFs}
+
+
+In modern data science, many problems involve time. The stock market changes every minute; a speech signal changes every millisecond; a car changes its steering angle constantly; the examples are endless. A common theme among all these examples is randomness. We do not know whether a stock will go up or down tomorrow, although we may be able to make some predictions based on previous observations. We do not know the next word of a sentence, but we can guess based on the context. Random processes are tools that can be applied to these situations. We treat a random process as an infinitely long vector of random variables where the correlations between the individual variables define the statistical properties of the process. If we can determine these correlations, we will be able to summarize the past and predict the future.
+
+\section{Basic Concepts}
+What is a \textit{random process}? A \textbf{random process is a function indexed by a random key}.
+
+\begin{itemize}
+	\item Random Variable: Let \(X\) be the outcome of rolling a six-sided die. \(X\) can take values \( \{1, 2, 3, 4, 5, 6\} \) with equal probability \( \frac{1}{6} \).
+	\item Random Process: Let \(\{X(t) : t \in [0, \infty)\}\) be the position of a particle undergoing Brownian motion. \(X(t)\) represents the position at time \(t\), with \(X(0) = 0\) and increments \(X(t) - X(s)\) for \(t > s\) following a normal distribution with mean 0 and variance \(t - s\).
+\end{itemize}
+
+\section{Statistical and Temporal Perspectives}
+Since a random process is a function indexed by a random key, it is a two-dimensional object. It is a function both of time $t$ and of the random key $\xi$. That’s why we use the notation $X(t, \xi)$ to denote a random process.
+
+\paragraph{Temporal Perspective:} Let us fix the random key at $\xi = \xi_0$. This gives us a function $X(t, \xi_0)$. Since $\xi$ is already fixed at $\xi_0$, we are looking at a particular realization drawn from the sample space. This realization is expressed as a function $X(t, \xi_0)$, which is just a deterministic function that evolves over time. There is no randomness associated with it. This is analogous to a random variable. While $X$ itself is a random variable, by fixing the random key $\xi = \xi_0$, $X(\xi_0)$ is just a real number. For random processes, $X(t, \xi_0)$ now becomes a function. 
+
+Since $X(t, \xi_0)$ is a function that evolves over time, we view it along the horizontal axis. For example, we can study the sequence
+\begin{align*}
+	X(t_1, \xi_0), X(t_2, \xi_0), \dots, X(t_K, \xi_0), 
+\end{align*}
+where $t_1, \dots, t_k$ are the time indices of the function. This sequence is deterministic and is just a sequence of numbers, although the numbers evolve as $t$ changes. 
+
+\paragraph{Statistical Perspective:} The other perspective, which could be slightly more abstract, is the statistical perspective. Let us fix the time at $t = t_0$. The random key $\xi$ can take anystate defined in the sample space. So if the sample space contains $\{\xi_1, \dots, \xi_N\}$, the sequence $\{X(t_0, \xi_1), X(t_0, \xi_2), \dots, X(t_0, \xi_N), \}$ is a sequence of random variables, because the $\xi$'s can go from one state to another state. 
+
+A good way to visualize the statistical perspective is the vertical perspective in which we write the sequence as a vertical column of random variables:
+
+\begin{align*}
+	X(t_0&, \xi_1)\\
+	X(t_0&, \xi_2)\\ 
+	&\vdots \\
+	X(t_0&, \xi_N)
+\end{align*}
+That is, if you fix the time at $t=t_0$, you are getting a sequence of random variables. The probability of getting a particular value $X(t_0)$ depends on which random state you land on. 
+
+Why do we bother to differentiate the temporal perspective and the statistical perspective? The reason is that the operations associated with the two are different, even if sometimes they give you the same result. For example, if we take the temporal average of the random process, we get a number:
+\begin{align*}
+	\overline{X}(\xi) = \frac{1}{T}\int_{0}^TX(t, \xi)dt.
+\end{align*}
+We call this the ``\textit{temporal average}'', because we have integrated the function over time. The resulting value will not change with time. However, $\overline{X}(\xi)$ depends on the random key you provide. If you pick a different random realization, $\overline{X}(\xi)$ will take a different value. So the \textbf{temporal average is a random variable}. 
+
+On the other hand, if we take the statistical average of the random process, we get
+\begin{align*}
+	\mathbb{E}[X(t)]= \int_{\Omega} X(t, \xi)p(\xi)d\xi,
+\end{align*}
+where $p(\xi)$ is the PDF of the random key $\xi$. We call this the \textit{statistical average}, because we have taken the expectation over all possible random keys. The resulting object $\mathbb{E}[X(t)]$ is \textbf{deterministic} but a function of time. 
+
+No matter how you look at the temporal average or the statistical average, they are
+different with the following exception: that $\overline{X}(\xi) = \mathbb{E}[X(t)] = a$. This happens only for some special random processes, known as \textit{ergodic} processes that allow us to approximate the statistical average using the temporal average, wish some guarantees derived from the law of large numbers. 
+
+\section{Mean and Correlation Functions}
+\subsection{Mean Function}
+The mean function $\mu_X(t)$ of a random process $X(t)$ is 
+\begin{align*}
+	\mu_X(t) = \mathbb{E}[X(t)]
+\end{align*}
+Let's consider the ``expectation'' of $X(t)$. Recall that a random process is actually $X(t, \xi)$ where $\xi$ is the random key. Therefore, the expectation is taken with respect to $\xi$, or formally, 
+\begin{align*}
+	\mu_X(t) = \mathbb{E}[X(t)] = \int_{\Omega} X(t, \xi)p(\xi) d\xi,
+\end{align*}
+where $p(\xi)$ is the PDF of the random key and $\Omega$ is the sample space of $\xi$. 
+
+\subsection{Autocorrelation Function}
+In random processes, the notions of variance and covariance are trickier than for random variables. Let us first define the concept of an \textit{autocorrelation function} of a random process $X(t)$, which is given by
+\begin{align*}
+	R_X(t_1, t_2) = \mathbb{E}[X(t_1)X(t_2)].
+\end{align*}
+How do we understand the meaning of $\mathbb{E}[X(t_1)X(t_2)]$? $\mathbb{E}[X(t_1)X(t_2)]$ is analogous to the correlation $\mathbb{E}[XY]$ between two random variables. The $\mathbb{E}[XY]$ could be regarded as the inner product of two vectors, and so it is a measure of the closeness between $X$ and $Y$. Now, if we substitute $X$ and $Y$ with $X(t_1)$ and $X(t_2)$ respectively, then we are effectively asking about the closeness between $X(t_1)$ and $X(t_2)$. So, in a nutshell, \textbf{the autocorrelation function tells us the correlation between the function at two different time stamps}.
+
+What do we mean by the correlation between two timestamps? Recall that $X(t_1)$ and $X(t_2)$ are two random variables. Consider the following example:
+
+\paragraph{Example:}Let $X(t) = A\cos(2\pi t),$ where $A\sim Unif[0,1]$. Find $\mathbb{E}[X(0)X(0.5)]$. 
+
+If $X(t) = A\cos(2\pi t)$, then
+\begin{itemize}
+	\item $X(0)=A\cos(0) = A$
+	\item $X(0.5)=A\cos(0.5) = -A$
+\end{itemize}
+Then, we get 
+\begin{align*}
+	\mathbb{E}[X(0)X(0.5)] &= -\mathbb{E}[A\cdot A]\\
+						   &= -\mathbb{E}[A^2] = -\frac{1}{3}
+\end{align*}
+If we consider $X(0)$ and $X(0.5)$, each of them is a random variable, and thus we can ask about their PDFs. It is clear that $X(0)$ has a PDF that is a uniform distribution from 0 to 1 by its definition, whereas $X(0.5)$ follows a uniform distribution from -1 to 0. Formally, 
+\begin{align*}
+	f_{X(0)} = \begin{cases}
+		1& 0\leq x \leq 1,\\
+		0&\text{otherwise}
+	\end{cases}
+	\quad \text{and} \quad
+	f_{X(0.5)} = \begin{cases}
+		1& -1\leq x \leq 0,\\
+		0&\text{otherwise}
+	\end{cases}
+\end{align*}
+\begin{figure}[t]
+	\centering
+	\includegraphics[scale=0.5]{./images/autocorrelation.png}
+	\caption{The autocorrelation between $X(0)$ and $X(0.5)$ should be regarded as the correlation between two random variables. Each random variable has its own PDF.}
+\end{figure}
+
+\subsection{Independent Processes}
+How do we establish independence for two random processes? We know that for two random variables to be independent, the joint PDF can be written as a product of two PDFs:
+\begin{align*}
+	f_{X,Y}(x,y) = f_X(x)f_Y(y).
+\end{align*}
+If we extrapolate this idea to random processes, a natural formulation would be
+\begin{align*}
+	f_{X(t),Y(t)}(x,y) = f_{X(t)}(x)f_{Y(t)}(y).
+\end{align*}
+However, this definition has a problem since $X(t)$ and $Y(t)$ are functions. It is not enough to just look at one time index, say $t=t_0$. The way to think about this situation is to consider a pair of random vectors $\mathbf{X}$ and $\mathbf{Y}$. When you say they are independent, you require $f_{\mathbf{X,Y}}(\rvx, \rvy) = f_{\mathbf{X}}(\rvx)f_{\mathbf{Y}}(\rvy)$. The PDF $f_{\mathbf{X}}(\rvx)$ itself is a joint distribution, \ie $f_{\mathbf{X}}(\rvx) = f_{X_1,\dots,X_N}(x_1,\dots,x_N)$. Therefore, for random processes, we need something similar. 
+
+\begin{definition}{}
+	Two random processes $X(t)$ and $Y(t)$ are independent if for any $t_1,\dots,t_N$, 
+	\begin{align*}
+		f_{X(t_1), \dots, X(t_N), Y(t_1),\dots,Y(t_N)}&(x_1,\dots,x_N,y_1\dots,y_N)\\
+								  &= f_{X(t_1), \dots, X(t_N)}(x_1,\dots,x_N)f_{Y(t_1), \dots, Y(t_N)}(y_1,\dots,y_N)
+	\end{align*}
+\end{definition}
+Independence means that the behavior of one process will not influence the behavior of the other process. We define \textit{uncorrelated} as follows:
+Two random processes, $X(t)$ and $Y(t)$ are uncorrelated if  
+\begin{align*}
+	\mathbb{E}[X(t_1)Y(t_2)] = \mathbb{E}[X(t_1)]\mathbb{E}[Y(t_2)].
+\end{align*}
+Independence implies uncorrelation, but if two random processes are uncorrelated, they are not necessarily independent.
+
+\section{Wide-Sense Stationary Processes}
+Random processes with Toeplitz structure are known as \textit{wide-sense stationary} (WSS) processes. WSS processes belong to a very small subset in the entire universe of random processes, but they are practically the most useful ones. Before we discuss how to use them, we first present a formal definition of a WSS process. 
+\begin{definition}{WSS Process}
+	A random process $X(t)$ is wide-sense stationary if 
+	\begin{enumerate}
+		\item $\mu_X(t) = constant$, for all $t$
+		\item $R_X(t_1, t_2) = R_X(t_1-t_2)$, for all $t_1,t_2$.
+	\end{enumerate}
+\end{definition}
+The first criterion states that \textbf{the mean function does not change with time}. The second criterion is that the autocorrelation function only depends on the difference $t_1-t_2$ and not on the absolute starting point. For example, $R_X(0.1,1.1)$ needs to be the same as $R_X(6.3,7.3)$, since the intervals are both 1.
+
+How can these two criteria be mapped to the Toeplitz structure? The figure above represents the autocorrelation function $R_X(t_1, t_2)$, which is a 2D function. We take three cross sections corresponding to $t_2 = -0.13, t_2 = 0$, and $t_2 = 0.3$. As you can see from the figure, each $R_X(t_1, t_2)$ is a shifted version of another. To obtain any value $R_X(t_1, t_2)$ on the function, there is no need to probe to the 2D map; you only need to probe to the red curve and locate the position marked as $t_1-t_2$, and you will be able to obtain the value $R_X(t_1, t_2)$. 
+\begin{figure}[t]
+	\centering
+	\includegraphics[scale=0.5]{./images/autocorrelation_toeplitz.png}
+	\caption{Cross sections of the autocorrelation function $R_X(t_1, t_2) = \frac{1}{2}\cos\left(\omega (t_1-t_2)\right).$}
+\end{figure}
+Since a WSS is completely characterized by the difference $t_1-t_2$, there is no need to keep track of the absolute indices $t_1$ and $t_2$. We can rewrite the autocorrelation function as
+\begin{align*}
+	R_X(\tau) = \mathbb{E}[X(t+\tau)X(t)].
+\end{align*}
+
+
+
+

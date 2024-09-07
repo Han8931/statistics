@@ -1,4 +1,26 @@
+\chapter{Gaussian Distribution}
+
 \section{Gaussian Distribution}
+The normal distribution is by far \textbf{the most important probability distribution}. One of the main reasons for that is the \textit{Central Limit Theorem} (CLT). To give you an idea, the CLT states that \textit{if you add a large number of random variables, the distribution of the sum will be approximately normal under certain conditions}. The importance of this result comes from the fact that many random variables in real life can be expressed as the sum of a large number of random variables and, by the CLT, we can argue that distribution of the sum should be normal. The CLT is one of the most important results in probability and we will discuss it later on. Here, we will introduce normal random variables.
+
+We first define the standard normal random variable. We will then see that we can obtain other normal random variables by scaling and shifting a standard normal random variable. 
+
+A continuous random variable $Z$ is said to be a \textit{standard normal} (\textit{standard Gaussian}) random variable, shown as $Z\sim \mathcal{N}(0,1)$, if its PDF is given by
+$$f_Z(z) = \frac{1}{\sqrt{2 \pi}} \exp\left\{-\frac{z^2}{2}\right\}, \quad \textrm{for all } z \in \mathbb{R}.$$
+The $1/\sqrt{2\pi}$ is there to make sure that the area under the PDF is equal to one. 
+
+\subsection{Cumulative Distribution Function}
+The CDF of the standard normal distribution is denoted by the $\Phi$ function:
+$$\Phi(x)=P(Z \leq x)= \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{x}\exp\left\{-\frac{u^2}{2}\right\} du.$$
+Here are some properties of the $\Phi$ function:
+\begin{itemize}
+	\item $\lim_{x\to\infty}\Phi(x) = 1$
+	\item $\lim_{x\to-\infty}\Phi(x) = 0$
+	\item $\Phi(0) = \frac{1}{2}$
+	\item $\Phi(-x) = 1-\Phi(x), \forall x \in \mathbb{R}.$
+\end{itemize}
+
+\subsection{Multinomial}
 For a $D$-dimensional vector $\rvx$, the multivariate Gaussian distribution takes the form
 \begin{align}
 	\mathcal{N}(\mathbf{x}|\boldsymbol{\mu},\boldsymbol{\Sigma}) &= \frac{1}{(2\pi)^{D/2}|\boldsymbol{\Sigma}|^{1/2}}\exp\bigg(-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\bigg)\\
@@ -28,7 +50,9 @@ and the covariance matrix is given by
 	\end{bmatrix} 
 \end{align*}
 Note that the symmetry $\mSigma^T = \mSigma$ implies that $\mSigma_{ab}^T=\mSigma_{ba}$. We can also define a \textit{precision matrix} as follows: 
-$$\mLambda \equiv \mSigma^{-1}$$
+$$\mLambda \equiv \mSigma^{-1},$$
+Note that the precision is the inverse of variance (\ie 1/Variance). A higher precision indicates more certainty or confidence in the estimate, meaning the data points are less spread out.
+
 We also introduce a partitioned form of the precision matrix:
 \begin{align}
 	\boldsymbol{\Lambda} = \begin{bmatrix}
@@ -63,5 +87,6 @@ Now let's compute the conditional probability:
 	&= -\frac{1}{2}\big((\rvx_a-\vmu_a)^T\mLambda_{aa}(\rvx_a-\vmu_a)+(\rvx_a-\vmu_a)^T\mLambda_{ab}(\rvx_a-\vmu_a)\\
 	&\quad+(\rvx_a-\vmu_a)^T\mLambda_{ba}(\rvx_a-\vmu_a)+(\rvx_a-\vmu_a)^T\mLambda_{bb}(\rvx_a-\vmu_a)\big)\\
 \end{align*}
+
 
 
