@@ -123,17 +123,34 @@ Note that
 \end{itemize}
 \begin{align*}
 	E[X] &= \sum_x x \cdot p(x)\\
-	E[E[X|Y]] &= E[X]
+	E_Y[E[X|Y]] &= E[X]
 \end{align*}
-Since, $E[E[X|Y]]$ is the function of $Y$. It is also called \textit{the law of iterated expectations}.
+Since, $E[E[X|Y]]$ is the function of $Y$. It is also called \textit{the law of iterated expectations} or \textit{the law of total expectation}.
 \begin{align*}
-	\mathbb{E}[\mathbb{E}[X|Y]]&= \mathbb{E}\Bigg[\sum_{x}x\cdot P(X=x|Y)\Bigg]\\
+	\mathbb{E}_Y[\mathbb{E}[X|Y]]&= \mathbb{E}_Y\Bigg[\sum_{x}x\cdot P(X=x|Y)\Bigg]\\
 	&= \sum_y\Bigg[\sum_{x}x\cdot P(X=x|Y)\Bigg]\cdot P(Y=y)\\
 	&= \sum_y\sum_{x}x\cdot P(X=x,Y)\\
 	&= \sum_x x\sum_{y}\cdot P(X=x,Y)\\
 	&= \sum_x x\cdot P(X=x)\\
 	&= \mathbb{E}[X]
 \end{align*}
+To get an intuition, consider the following example: Let $X$ be the lifetime duration of a lightbulb, and let $Y$ be the factory the lightbulb was produced in. Suppose $E[X|Y=1]=5000$ and $E[X|Y=2]=4000$, indicating that factory 1 produces longer lasting bulbs. Suppose factory 1 supplies 60\% of the lightbulbs, so $p(Y=1)=0.6$ and $p(Y=2)=0.4$. Then the expected duration of a random lightbulb is given by
+\begin{align*}
+	E[X] = E[X|Y=1]p(Y=1)+E[X|Y=2]p(Y=2)
+\end{align*}
+There is a similar formula for the variance. In particular, \textit{the law of total variance}, also called the conditional variance formula, tells us that
+\begin{align*}
+	V[X] = E_Y[V[X|Y]]+V_Y[E[X|Y]]
+\end{align*}
+To see this, let's define the conditional moments, $\mu_{X|Y}=E[X|Y]$, $s_{X|Y}=E[X^2|Y]$, and $\sigma^2_{X|Y}=V[X|Y]=s_{X|Y}-\mu^2_{X|Y}$, which are functions of $Y$. Then, we have
+\begin{align*}
+	V[X] &= E[X^2]-(E[x])^2 = E_Y[s_{X|Y}]-(E_Y[\mu_{X|Y}])^2\\
+		 &= E_Y[\sigma^2_{X|Y}]+E_Y[\mu^2_{X|Y}]-(E_Y[\mu_{X|Y}])^2\\
+		 &= E_Y[V[X|Y]]+V_Y[\mu_{X|Y}]
+\end{align*}
+
+
+
 \begin{align*}
 E[Y \mid X = x] &= \sum_y y\cdot p_{Y\mid X}(y\mid X = x)\\
 &= \sum_y y \cdot \frac{p_{X,Y}(x,y)}{p_X(x)}\\
