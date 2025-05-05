@@ -30,7 +30,11 @@ The weak law of large numbers (WLLN) states that for any $\epsilon >0$, i.i.d. r
 \section{Central Limit Theorems}
 \textit{The central limit theorem} (CLT) is one of the most important results in probability theory. It states that, \textbf{under certain conditions, the sum of a large number of random variables is approximately normal}.
 
-Suppose that $X_1,\dots,X_n$ are i.i.d. random variables with expected values $EX_i=\mu<\infty$ and variance Var$(X_i)=\sigma^2<\infty$. Then as we saw above, the sample mean and variance have $E\overline{X}=\mu$ and Var$(\overline{X})=\frac{\sigma^2}{n}$. Thus, the normalized random variable
+Suppose that $X_1,\dots,X_n$ are i.i.d. random variables with expected values $EX_i=\mu<\infty$ and variance Var$(X_i)=\sigma^2<\infty$. 
+
+%Let $S_N = \sum_{n=1}^N X_n$ be the sum of the RVs.One can show that, as $N$ increases the distribution of this sum approaches
+
+Then as we saw above, the sample mean and variance have $E\overline{X}=\mu$ and Var$(\overline{X})=\frac{\sigma^2}{n}$. Thus, the normalized random variable
 
 \begin{align*}
 	Z_n = \frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}} = \frac{X_1+\dots+X_n-n\mu}{\sqrt{n}\sigma}

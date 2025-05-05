@@ -270,9 +270,16 @@ The above integral is called the \textit{convolution} of $f_X$ and $f_Y$, and we
 	f_Z(z) &= f_X*f_Y\\
 		   &= \int_{-\infty}^{\infty}f_{X}(w)f_{Y}(z-w)dw = \int_{-\infty}^{\infty}f_{Y}(w)f_{X}(z-w)dw
 \end{align*}
-The convolution can be thought as a sum of two independent RVs.
+The convolution can be thought as a sum of two independent RVs. For example, suppose we roll two dice. Let $y = x_1+x_2$ be the sum of the dice. We have
 
-\paragraph{Example} Let $X$ and $Y$ be two independent standard RVs, and let $Z = X+Y$. Find the PDF of $Z$.
+\begin{align*}
+	p(y=2) &= p(x_1=1)p(x_2=1) = \frac{1}{36}\\
+	p(y=3) &= p(x_1=1)p(x_2=2) + p(x_1=2)p(x_2=1) = \frac{2}{36}\\
+	\vdots
+\end{align*}
+
+
+\paragraph{Example} Let $X$ and $Y$ be two independent RVs, where both are Gaussians and let $Z = X+Y$. Find the PDF of $Z$.
 
 We have 
 \begin{align*}
@@ -284,8 +291,9 @@ We have
 \end{align*}
 
 
-Note that if $X\sim \mathcal{N}\left(\mu_X, \sigma_X^2\right)$ and $Y\sim \mathcal{N}\left(\mu_Y, \sigma_Y^2\right)$ are independent, then 
+Note that if $X\sim \mathcal{N}\left(\mu_X, \sigma_X^2\right)$ and $Y\sim \mathcal{N}\left(\mu_Y, \sigma_Y^2\right)$, then 
 $$X+Y\sim \mathcal{N}\left(\mu_X+\mu_Y, \sigma_X^2+\sigma_Y^2\right).$$
+Hence, the convolution of two Gaussians is a Gaussian.
 
 \section{Covariance and Correlation}
 
