@@ -240,8 +240,6 @@ Then, we can find the inverse transform:
 		y &= z-w
 	\end{cases}
 \end{align*}
-Subsequently, we have 
-$$|J| = 1.$$
 Thus, 
 $$f_{ZW}(z,w) = f_{XY}(w,z-w).$$
 However, we are interested in the marginal PDF, $f_Z(z)$, we can get it by
@@ -253,9 +251,25 @@ The above integral is called the \textit{convolution} of $f_X$ and $f_Y$, and we
 	f_Z(z) &= f_X*f_Y\\
 		   &= \int_{-\infty}^{\infty}f_{X}(w)f_{Y}(z-w)dw = \int_{-\infty}^{\infty}f_{Y}(w)f_{X}(z-w)dw
 \end{align*}
-The convolution can be thought as a sum of two independent RVs.
+\textbf{The convolution can be thought as a sum of two independent RVs.}
 
-\paragraph{Example} Let $X$ and $Y$ be two independent standard RVs, and let $Z = X+Y$. Find the PDF of $Z$.
+\paragraph{Example} Let $X,Y\sim \text{Unif}[1,4]$ be independent rolls of a fair 4-sided die. What is the PMF of $Z=X+Y$.
+We know that for the range of $Z$ we have the following, since it is the sum of two values each in the range $\{2, 3, 4, 5, 6, 7, 8\}$.
+
+f I wanted to compute the probability that $Z=3$ for example, I could just sum over all possible values of $X$ in $\Omega_X = \{1, 2, 3, 4\}$ to get:
+\begin{align*}
+	P(Z=3) &= P(X=1, Y=2)+P(X=2,Y=1)+ \dots + P(X=4, Y=-1) \\
+		   &= P(X=1)P(Y=2)+P(X=2)P(Y=1)+ \dots + P(X=4)P(Y=-1) \\
+		   &= \frac{1}{4}\cdot \frac{1}{4}+ \dots + \frac{1}{4}\cdot 0\\
+		   &= \frac{2}{16}
+\end{align*}
+Thus, 
+\begin{align*}
+	P(Z=z) &= \sum_{x\in \Omega_X}P(X=x, Y=z-x)\\
+		   &= \sum_{x\in \Omega_X}P(X=x)P(Y=z-x)
+\end{align*}
+
+\paragraph{Example} Let $X$ and $Y$ be two independent standard normal RVs, and let $Z = X+Y$. Find the PDF of $Z$.
 
 We have 
 \begin{align*}
