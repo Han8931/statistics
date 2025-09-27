@@ -1,0 +1,92 @@
+\chapter{Regression}
+
+\section{Linear Regression}
+Sometimes we are interested in obtaining a simple model that explains the relationship between two or more variables. For example, suppose that we are interested in studying the relationship between the income of parents and the income of their children in a certain country. In general, many factors can impact the income of a person. Nevertheless, we suspect that children from wealthier families generally tend to become wealthier when they grow up. Here, we can consider two variables: 
+\begin{itemize}
+	\item The family income can be defined as the average income of parents at a certain period.
+	\item The child income can be defined as his/her average income at a certain period (e.g, age).
+\end{itemize}
+ To examine the relationship between the two variables, we collect some data 
+\begin{align*}
+	(x_i,y_i), \quad \text{for } i=1,\dots, n,
+\end{align*}
+where $y_i$ is the average income of the $i$-th child and $x_i$ is the average income of his/her parents. We are often interested in finding a simple model. A linear model is probably the simplest model that we can define, where we write
+$$y_i = \beta_0+\beta_1x_i.$$
+Since, there could be other factors that impact a child's future income, we can express it
+$$y_i = \beta_0+\beta_1x_i+\epsilon_i,$$
+where $\epsilon_i$ is modeled as a random variable. More specifically, if we approximate a child's future income by the linear model, then $\epsilon_i$ indicates the error in our approximation. The goal is to obtain the best values of the parameters (\textit{regression coefficients}).
+\begin{figure}[t]
+	\centering
+	\includegraphics[scale=1.0]{./images/regression_line.png}
+\end{figure}
+Since $\epsilon$ (residual term) is a random variable, $Y$ is also a random variable. The variable $x$ is called the \textit{predictor} or the \textit{explanatory} variable, and the random variable $Y$ is called the \textit{response} variable. 
+
+\subsection{A Simple Linear Regression Model}
+$$Y = \beta_0+\beta_1X+\epsilon,$$
+where $\epsilon$'s as independent and zero-mean normal random variables, 
+\begin{align*}
+	\epsilon_i\sim \mathcal{N}(0, \sigma^2).
+\end{align*}
+The parameters and $\sigma^2$ are considered fixed but unknown. The assumption is that we have data points and our goal is to find the best values for the regression coefficients. 
+
+First, we take expectation from both sides to obtain
+\begin{align*}
+	EY &= \beta_0+\beta_1EX+E[\epsilon]\\
+	   &= \beta_0+\beta_1EX
+\end{align*}
+Thus, 
+\begin{align*}
+	\beta_0 = EY-\beta_1EX
+\end{align*}
+Subsequently, we look at $Cov(X,Y)$,
+\begin{align*}
+	Cov(X,Y) &= Cov(X,\beta_0+\beta_1X+\epsilon)\\
+			 &= \text{Cov}(X, \beta_0) + \text{Cov}(X, \beta_1 X) + \text{Cov}(X, \epsilon)\\
+			 &= \text{Cov}(X, \beta_1 X)\\
+			 &= \beta_1\text{Cov}(X, X) \quad \text{by Scaling property} \\
+			 &= \beta_1\text{Var}(X)\\
+\end{align*}
+Note that the second step uses the linearity of covariance:
+\begin{align*}
+	Cov(X+Y,Z)=Cov(X,Z)+Cov(Y,Z).
+\end{align*}
+Also, the covariance with a constant and any random variable is zero, and the covariance of two independent random variables is zero. 
+
+Therefore, we obtain
+\begin{align*}
+	\beta_1=\frac{\textrm{Cov}(X,Y)}{\textrm{Var}(X)}, \quad \beta_0=EY-\beta_1 EX.
+\end{align*}
+In sum, if we know the above statistics, we can get the best coefficients.
+
+\paragraph{Coefficient of Determination (R-Squared):} Let's look at the linear mode:
+$$Y = \beta_0+\beta_1X+\epsilon.$$
+Note that if we want to estimate $Y$ using the observed $X$, then we can express it
+$$\hat{Y} = \beta_0+\beta_1X.$$
+The error in our estimate is
+$$Y-\hat{Y} = \epsilon.$$
+Note that the randomness in $Y$ comes from two sources: \Ni $X$ and \Nii $\epsilon$. More specifically, if we look at $Var(Y)$, 
+\begin{align*}
+	Var(Y) = \beta^2_1Var(X)+Var(\epsilon),
+\end{align*}
+since $X$ and $\epsilon$ are assumed to be independent. Also, recall that $Var(aX) = a^2Var(X)$. From the above equation we can define
+\begin{align*}
+	\rho^2 = \frac{\beta^2_1 Var(X)}{Var(Y)}
+\end{align*}
+as the portion of variance of $Y$ that is explained by variation in $X$. In other words, we want to measure the impact of the variance $X$. The $R^2$ value also can be defined as follows:
+\begin{align*}
+	R^2 = 1-\frac{Var(\epsilon)}{Var(Y)}
+\end{align*}
+Thus, it always lie between 0 and 1, since $Var(Y)$ is the total variance. Equivalently, we can leverage the fact that $\beta_1 = \frac{\textrm{Cov}(X,Y)}{\textrm{Var}(X)}$. Then, we get
+\begin{align*}
+	\rho^2 = \frac{Cov(X, Y)^2}{Var(X)Var(Y)}
+\end{align*}
+Larger values of $R^2$ generally suggest that our linear model is a good fit for the data.
+
+
+
+
+
+
+
+
+

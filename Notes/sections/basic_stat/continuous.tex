@@ -118,11 +118,15 @@ Note that the derivative $\frac{dx}{dy}$ or $\frac{d}{dy}(g^{-1}(y))$ \textbf{me
 % 	y &= f^{-1}(x)\\
 % 	[f^{-1}]'(x) &= \frac{1}{f'(f^{-1}(x))}
 % \end{align*}
-Since $g$ is strictly increasing, its inverse function $g^{-1}$ is well defined. That is, for each $y\in R_Y$, there exists a \textbf{unique} $x_1$ such that $g(x_1)=y$. We can write $x_1=g^{-1}(y)$.
+Since $g$ is strictly increasing, its inverse function $g^{-1}$ is well defined. You can imagine a simple function like a linear function, \eg $Y=3X+1$. Then, for each $y\in R_Y$, there exists a \textbf{unique} $x_1$ such that $g(x_1)=y$. We can write $x_1=g^{-1}(y)$.
+\begin{align*}
+	\{Y\leq y\} = \{g(X)\leq y\} = \{X \leq g^{-1}(x)\}.
+\end{align*}
+Thus, 
 \begin{align*}
 	F_Y(y) &= P(Y\leq y)\\
 		   &= P(g(X)\leq y)\\
-		   &= P(X< g^{-1}(y))\quad \text{since }g \text{ is strictly increasing.}\\
+		   &= P(X\leq g^{-1}(y))\quad \text{, since }g \text{ is strictly increasing.}\\
 		   &= F_X(g^{-1}(y)).
 \end{align*}
 To find the PDF of $Y$, we differentiate $F_Y(y)$ as follows:
