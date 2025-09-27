@@ -20,10 +20,18 @@
 
 \usepackage[most]{tcolorbox}
 
+% \newtcolorbox{commentbox}[1]{colback=blue!5!white,
+%   colframe=blue!75!black,
+%   fonttitle=\bfseries,
+%   title=#1}
+
 \newtcolorbox{commentbox}[1]{colback=blue!5!white,
   colframe=blue!75!black,
   fonttitle=\bfseries,
-  title=#1}
+  title=#1,  % use like \begin{commentbox}{My title}
+  enhanced, breakable
+}
+
 
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},
