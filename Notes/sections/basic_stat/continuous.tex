@@ -94,11 +94,11 @@ The range of $x$, $R_X=[0,1]$, so the range of $Y$, $R_Y=[1,e]$. We can find the
 		   &= \ln y \quad \text{, since } F_X(x)=x \text{ for } 0\leq x \leq 1 \text{ and } 0\leq \ln y \leq 1. 
 \end{align*}
 
-\section{The Method of Transformations}
-So far, we have discussed how we can find the distribution of a function of a continuous random variable starting from finding the CDF. If we are interested in finding the PDF of $Y=g(X)$, and the function $g$ satisfies following properties, it might be easier to use a method called the method of transformations.
+\section{The Method of Transformations of Random Variables}
+So far, we have discussed how we can find the distribution of a function of a continuous random variable starting from finding the CDF. If we are interested in finding the PDF of $Y=g(X)$, where $g(\cdot)$ is some deterministic transformation of $X$, and the function $g$ satisfies following properties, we can utilize a method called the method of transformations.
 \begin{itemize}
 	\item $g(x)$ is differentiable;
-	\item $g(x)$ is a strictly increasing function, that is, if $x_1<x_2$, then $g(x_1)<g(x_2)$.
+	\item $g(x)$ is a strictly (or monotonically) increasing function, that is, if $x_1<x_2$, then $g(x_1)<g(x_2)$.
 \end{itemize}
 
 Now, let $X$ be a continuous random variable and $Y=g(X)$. We will show that you can directly find the PDF of $Y$ using the following formula.
@@ -143,7 +143,7 @@ Actually, we assumed that $g$ was one-to-one out of convenience: the condition t
 where $x_1,\dots,x_n$ are real solutions to $g(x)=y$.
 
 \subsection{Intuitive Explanation}
-``How to derive the PDF of the random variable $Y=g(X)$ when one knows the pdf of the random variable $X$?''. For a general function $g$, there is no direct formula to get the pdf of the random variable $Y=g(X)$ knowing the PDF of $X$. There is a formula in case when $h$ is a differentiable one-to-one mapping from the range (the support, I should say) of $X$ to the range of $Y$.
+How to derive the PDF of the random variable $Y=g(X)$ when one knows the PDF of the random variable $X$? If $X$ is discrete, we can derive the pmf for $Y$ by simply summing up the probability mass for all the $x$'s such that $f(x)=y$. For a general function $g$, there is no direct formula to get the PDF of the random variable $Y=g(X)$ knowing $p(X)$. There is a formula in case when $h$ is a differentiable one-to-one mapping from the range (\ie the support) of $X$ to the range of $Y$.
 
 Take for example a random variable $X\sim \mathcal{N}(\mu, \sigma)$ and set $Y=\exp(X)$. The figure below shows some simulations of $X$ and the corresponding values of $Y$. The density of $X$ is shown in blue and the one of $Y$ is shown in orange in the vertical direction.
 \begin{figure}[ht]
@@ -170,10 +170,10 @@ $$P(Y\in dy)\approx f_Y(y)|dy|,$$
 where $P(Y\in dy)$ is the area below the curve. Similarly, we can define
 $$P(X\in dx)\approx f_X(x)|dx|$$
 The above two areas are approximately the same in case of very small region. Note that if $dy$ and $dx$ are very small, we can approximate the derivative of $g'(x)=\frac{|dy|}{|dx|}$. Compactly, this can be expressed as follows:
-$$P(Y\in dy) = P(X\in dx) = f_X(x)\frac{|dy|}{g'(x)}$$
+$$P(X\in dx) = f_X(x)\frac{|dy|}{g'(x)}$$
 With $y=g(x)$ we can get 
 \begin{align*}
-	P(Y\in dy) &= f_X(x)\frac{|dy|}{g'(x)}\\
+	P(X\in dx)\approx P(Y\in dy) &= f_X(x)\frac{|dy|}{g'(x)}\\
 	& = f_X(g^{-1}(y))\frac{|dy|}{g'(g^{-1}(y))}\\
 	& = f_X(g^{-1}(y))|dy|(g^{-1})'(y)
 \end{align*}
@@ -181,8 +181,7 @@ The last line is by the derivative of inverse function which is
 $$\frac{d}{dx}f^{-1}(x) = \frac{1}{f'(f^{-1}(x))}$$
 Finally, we can get 
 $$f_Y(y) = f_X(g^{-1}(y))|(g^{-1})'(y)|$$
-Note that the absolute is determined by the function $h$. This is the so-called change of variables formula.
-
+Note that the absolute is determined by the function $h$. This is the so-called \textit{change of variables formula}.
 
 \section{Various Distributions}
 

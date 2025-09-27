@@ -68,6 +68,37 @@ Example:
 		\end{align*}
 \end{itemize}
 
+\subsection{Binomial v.s., Multinomial Distributions}
+
+\paragraph{Binomial Distribution} models \textbf{the number of successes in a fixed number of independent trials, where each trial has only two possible outcomes}: success (with probability \(p\)) or failure (with probability \(1-p\)).
+
+\begin{itemize}
+	\item Number of outcomes per trial: Two (success/failure).
+	\item Trials: Fixed and independent.
+	\item Parameters: \(n\) (number of trials) and \(p\) (probability of success in a single trial).
+	\item Probability Mass Function (PMF):
+	 \[
+	 P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}
+	 \]
+	 where \(k\) is the number of successes, \(0 \leq k \leq n\).
+	\item Example: Flipping a coin \(n = 10\) times and counting the number of heads (successes).
+\end{itemize}
+
+\paragraph{Multinomial Distribution} \textbf{generalizes the binomial distribution to experiments with more than two possible outcomes per trial.} It models the counts of each outcome across a fixed number of trials.
+
+\begin{itemize}
+	\item Number of outcomes per trial: More than two (e.g., \(k\) categories).
+	\item Trials: Fixed and independent.
+	\item Parameters: \(n\) (number of trials) and \(\mathbf{p} = (p_1, p_2, \dots, p_k)\), where \(p_i\) is the probability of outcome \(i\) and \(\sum_{i=1}^k p_i = 1\).
+	\item Probability Mass Function (PMF):
+	\[
+	P(X_1 = x_1, X_2 = x_2, \dots, X_k = x_k) = \frac{n!}{x_1! x_2! \cdots x_k!} p_1^{x_1} p_2^{x_2} \cdots p_k^{x_k},
+	\]
+	where \(x_i\) is the count of outcomes in category \(i\), and \(\sum_{i=1}^k x_i = n\).
+	\item Example: Rolling a six-sided die \(n = 10\) times and counting how many times each face $(1, 2, \dots, 6)$ appears.
+\end{itemize}
+
+
 \paragraph{Negative Binomial (Pascal) Distribution}
 The \textit{negative binomial} or \textit{Pascal distribution} is a \textbf{generalization of the geometric distribution}. It relates to the random experiment of \textbf{repeated independent trials until observing $m$ successes}. Suppose that I have a coin with $P(H)=p$. I toss the coin until I observe $m$ heads, where $m\in \mathbb{N}$. We define $X$ as the total number of coin tosses in this experiment. Then $X$ is said to have Pascal distribution with parameter $m$ and $p$. We write $X\sim Pascal(m,p)$. Note that $Pascal(1,p=Geometric(p))$, since the geometric distribution repeats trials until observing the first success. Note that by our definition the range of $X$ is given by $R_X=\{m, m+1, m+2, m+3, \dots\}$, since $X$ is the number of coin tosses to observe $m$ target events.
 
