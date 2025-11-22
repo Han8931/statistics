@@ -130,9 +130,15 @@ The critical-value test belongs to a larger family of testing procedures based o
 
 \section{$p$-value test}
 
-An alternative to the critical-value test is the \textit{p-value test}. Instead of looking at the cutoff value $z_α$, \textbf{we inspect the probability of obtaining our observation if $H_0$ is true}. To understand how the $p$-value test works, we consider another toy problem. 
+An alternative to the critical-value test is the \textit{p-value test}. Instead of looking at the cutoff value $z_α$, \textbf{we inspect the probability of obtaining our observation if $H_0$ is true}. In other words, it is the probability of getting data at least this extreme, if $H_0$ were true.
 
-Suppose that we have two hypotheses about flipping a coin:
+In sum, a decision can be made as follows:
+\begin{itemize}
+	\item If $p$-value $< \alpha$, the result is unlikely under $H_0$. This implies that it is ``statistically significant'', so we reject $H_0$.
+	\item If $p$-value $\ge \alpha$, The result is not that surprising, so we do not reject$H_0$ 
+\end{itemize}
+
+Let's consider a toy problem. Suppose that we have two hypotheses about flipping a coin:
 \begin{itemize}
 	\item $H_0: \theta = 0.9$, which is our default belief.
 	\item $H_1: \theta < 0.9$, which is a one-sided alternative.

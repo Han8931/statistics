@@ -13,7 +13,7 @@ where $Y$ is the number of people who support for candidate $A$.
 \textbf{Bayesian Inference}: In the Bayesian approach the unknown quantity $\theta$ is assumed to be a \textbf{random variable}, and we assume that we have some initial guess about the distribution of $\theta$. After observing the data, we update the distribution of $\theta$ using Bayes' Rule.
 
 \section{Point Estimation}
-Here, we assume that $\theta$ is an unknown parameter to be estimated. For example, $\theta$ might be the expected value of a random variable, $\theta=EX$. The important assumption here is that $\theta$ is a fixed (non-random) quantity. To estimate $\theta$, we need to collect some data. Specifically, we get a random sample $X_1, \dots, X_n$ such that $X_i$'s have the same distribution as $X$. To estimate $\theta$, we define a point estimator $\hat{\theta}$ that is a function of the random sample, i.e.,
+Here, we assume that $\theta$ is an unknown parameter to be estimated. For example, $\theta$ might be the expected value of a random variable, $\theta=EX$. The important assumption here is that $\theta$ is a fixed (non-random) quantity. To estimate $\theta$, we need to collect some data. Specifically, we get a random sample $X_1, \dots, X_n$ such that $X_i$'s have the same distribution as $X$. To estimate $\theta$, we define a \textit{point estimator} $\hat{\theta}$ that is a function of the random sample, i.e.,
 \begin{align*}
 	\hat{\theta} = h(X_1,\dots,X_n).
 \end{align*}
@@ -32,7 +32,7 @@ Let $\hat{\theta} = h(X_1,\dots, X_n)$ be a point estimator for $\theta$ (\eg po
 \end{align*}
 In general, we would like to have a bias that is close to $0$, indicating that on average, $\hat{\theta}$ is close to $\theta$. It is worth noting that $B(\hat{\theta})$ might depend on the actual value of $\theta$. In other words, you might have an estimator for which $B(\hat{\theta})$ is small for some values of $\theta$ and large for some other values of $\theta$. A desirable scenario is when $B(\hat{\theta})=0$, i.e, $E[\hat{\theta}]=\theta$, for all values of $\theta$. In this case, we say that $\hat{\theta}$ is an \textit{unbiased estimator} of $\theta$.
 
-Let $\hat{\theta} = h(X_1,\dots, X_n)$ be a point estimator for $\theta$.We say that $\hat{\theta}$ is an unbiased estimator of $\theta$ if 
+Let $\hat{\theta} = h(X_1,\dots, X_n)$ be a point estimator for $\theta$. We say that $\hat{\theta}$ is an unbiased estimator of $\theta$ if 
 \begin{align*}
 	B(\hat{\theta}) = 0, \, \text{for all possible values of } \theta.
 \end{align*}
@@ -224,7 +224,7 @@ $$P(-1.96\leq Z\leq 1.96) = 0.95.$$
 \subsection{Confidence Intervals for Normal Samples}
 We assumed $n$ to be large so that we could use the CLT. An interesting aspect of the confidence intervals that we obtained was that they often did not depend on the details of the distribution from which we obtained the random sample. That is, the confidence intervals only depended on statistics such as $\overline{X}$ and $S^2$. What if $n$ is not large enough? In this case, we cannot use the CLT, so we need to use the probability distribution from which the random sample is obtained. A very important case is when we have a sample $X_1, \dots, X_n$ from a normal distribution. Here, we would like to discuss how to find interval estimators for the mean and the variance of a normal distribution. We first need to introduce two distributions that are related to the normal distribution.
 
-\paragraph{Degree of Freedom}:Degrees of freedom (df) is a concept used in statistical analyses to describe the number of independent values or quantities which can vary in an analysis without breaking any constraints.  Degrees of freedom can be defined as the number of independent pieces of information available to estimate another piece of information. More formally, it's the number of values in a calculation that are free to vary.
+\paragraph{Degree of Freedom} is a concept used in statistical analyses to describe the number of independent values or quantities which can vary in an analysis without breaking any constraints.  Degrees of freedom can be defined as the number of independent pieces of information available to estimate another piece of information. More formally, it's the number of values in a calculation that are free to vary.
 \begin{itemize}
 	\item Single Sample Mean: When estimating the mean of a sample, degrees of freedom refer to the number of observations that can vary independently. If you have \( n \) observations and you know the sample mean, \( n - 1 \) of those observations can vary freely, while the last one is fixed by the constraint that the sum of deviations from the mean must be zero. For instance, a sample of 10 observations, the degrees of freedom when calculating the sample variance is \( n - 1 = 9 \). This is because once you know the first 9 values and the sample mean, the 10th value is determined.
 \end{itemize}
